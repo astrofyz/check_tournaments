@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import os
 
+import pandas as pd
 import streamlit as st
 
 from tourn_check_web_by_player import (
@@ -24,12 +25,21 @@ from tourn_check_web_by_player import (
     run_check,
 )
 
+_CLEAR_ROW_BG = "background-color: #e8f5e9"
+
+
+def _style_summary_clear_green(df: pd.DataFrame) -> pd.io.formats.style.Styler:
+    def row_style(row: pd.Series) -> list[str]:
+        if str(row.get("status", "")) == "clear":
+            return [_CLEAR_ROW_BG] * len(row.index)
+        return [""] * len(row.index)
+
+    return df.style.apply(row_style, axis=1)
+
 st.set_page_config(page_title="Tournament check (by player)", layout="wide")
 st.title("Tournament check")
 st.markdown(
-    "Uses `GET /players/{id}/tournaments/` plus seed lookups and intersections. "
-    "**Players:** one numeric id per line. **Tournaments:** digits-only = tournament id; "
-    "otherwise name search (optional `dateEnd` filter applies to name search only)."
+    "Проверка заигранности турниров кем-то из игроков"
 )
 
 players = st.text_area("Players", height=100, placeholder="12345\n67890")
@@ -74,7 +84,12 @@ if st.button("Run check", type="primary"):
             st.stop()
 
     st.subheader("Summary")
-    st.dataframe(report["summary"], use_container_width=True, hide_index=True)
+    summary_df = pd.DataFrame(report["summary"])
+    st.dataframe(
+        _style_summary_clear_green(summary_df),
+        use_container_width=True,
+        hide_index=True,
+    )
 
     warns = report.get("warnings") or []
     if warns:
