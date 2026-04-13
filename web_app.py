@@ -240,7 +240,12 @@ INDEX_HTML = """<!DOCTYPE html>
           return;
         }
         if (data.warnings && data.warnings.length) {
-          warn.textContent = data.warnings.map(w => w.type + ": " + (w.substring || "")).join("\\n");
+          warn.textContent = data.warnings.map(w => {
+            let s = w.type + ": " + (w.substring || "");
+            if (w.normalized && w.normalized !== w.substring) s += " → " + w.normalized;
+            if (w.words && w.words.length) s += " [" + w.words.join(", ") + "]";
+            return s;
+          }).join("\\n");
         }
         const rows = data.summary_rows || [];
         if (!rows.length) {

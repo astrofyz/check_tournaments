@@ -188,18 +188,68 @@ def tournament_id_from_player_row(row: dict[str, Any]) -> int | None:
     return None
 
 
+def strip_leading_until_alnum(line: str) -> str:
+    """Drop leading characters until the first letter or number (Unicode-aware)."""
+    for i, ch in enumerate(line):
+        if ch.isalnum():
+            return line[i:]
+    return ""
+
+
+def tournament_line_is_seed_id(line: str) -> bool:
+    """True if the whole line is decimal digits only (tournament id)."""
+    return bool(line) and line.isdigit()
+
+
+def tournaments_matching_all_words(
+    client: RatingClient,
+    words: list[str],
+    date_end_after: str | None,
+) -> list[dict[str, Any]]:
+    """Each word is a separate name[] API query; keep tournaments whose id appears in every result set."""
+    sets: list[set[int]] = []
+    rows_by_id: dict[int, dict[str, Any]] = {}
+    for w in words:
+        chunk = client.fetch_tournaments_by_name(w, date_end_after)
+        ids: set[int] = set()
+        for r in chunk:
+            tid = r.get("id")
+            if tid is None:
+                continue
+            tid_i = int(tid)
+            ids.add(tid_i)
+            if tid_i not in rows_by_id:
+                rows_by_id[tid_i] = r
+        sets.append(ids)
+    common = sets[0].copy()
+    for s in sets[1:]:
+        common &= s
+    return [rows_by_id[i] for i in sorted(common) if i in rows_by_id]
+
+
 def resolve_seeds_mixed(
     client: RatingClient,
     lines: list[str],
     date_end_after: str | None,
-) -> tuple[dict[int, dict[str, Any]], dict[str, list[dict[str, Any]]], list[int]]:
-    """Digit-only lines = tournament id; others = name substring. Keys are original lines."""
+) -> tuple[
+    dict[int, dict[str, Any]],
+    dict[str, list[dict[str, Any]]],
+    list[int],
+    list[dict[str, Any]],
+]:
+    """Digit-only lines = tournament id; others = name search after trimming leading punctuation.
+
+    Name search: strip leading non-alphanumeric, then GET /tournaments?name[]=full string.
+    If that returns nothing and there are at least two whitespace-separated tokens, run one
+    search per word and intersect by tournament id (AND of substring matches).
+    """
     seed_meta: dict[int, dict[str, Any]] = {}
     matches_by_line: dict[str, list[dict[str, Any]]] = {}
     order: list[int] = []
+    resolution_warnings: list[dict[str, Any]] = []
 
     for line in lines:
-        if line.isdigit():
+        if tournament_line_is_seed_id(line):
             tid_raw = int(line)
             row = client.fetch_tournament_item(tid_raw)
             if row is None or row.get("id") is None:
@@ -219,7 +269,23 @@ def resolve_seeds_mixed(
             if line not in seed_meta[tid]["source_substrings"]:
                 seed_meta[tid]["source_substrings"].append(line)
         else:
-            rows = client.fetch_tournaments_by_name(line, date_end_after)
+            normalized = strip_leading_until_alnum(line)
+            if not normalized:
+                matches_by_line[line] = []
+                continue
+            rows = client.fetch_tournaments_by_name(normalized, date_end_after)
+            words = [w for w in normalized.split() if w]
+            if not rows and len(words) >= 2:
+                rows = tournaments_matching_all_words(client, words, date_end_after)
+                if rows:
+                    resolution_warnings.append(
+                        {
+                            "type": "name_search_word_intersection",
+                            "substring": line,
+                            "normalized": normalized,
+                            "words": words,
+                        }
+                    )
             matches_by_line[line] = [{"id": r.get("id"), "name": r.get("name")} for r in rows]
             for trow in rows:
                 tid = trow.get("id")
@@ -238,7 +304,7 @@ def resolve_seeds_mixed(
                 if line not in seed_meta[tid]["source_substrings"]:
                     seed_meta[tid]["source_substrings"].append(line)
 
-    return seed_meta, matches_by_line, order
+    return seed_meta, matches_by_line, order, resolution_warnings
 
 
 def short_label_from_status(status: str) -> str:
@@ -382,7 +448,7 @@ def run_check(
     except ValueError:
         parallel_workers = 8
 
-    seed_meta, matches_by_line, seed_order = resolve_seeds_mixed(
+    seed_meta, matches_by_line, seed_order, resolution_warnings = resolve_seeds_mixed(
         client, tournament_lines, date_end_after
     )
     _timing_note("resolve seeds (name/id lookups)")
@@ -487,7 +553,7 @@ def run_check(
         )
 
     summary = build_summary(tournament_lines, matches_by_line, tournaments_out)
-    kinds = ["id" if ln.isdigit() else "name" for ln in tournament_lines]
+    kinds = ["id" if tournament_line_is_seed_id(ln) else "name" for ln in tournament_lines]
     _timing_note("build summary / report dict")
 
     return {
@@ -501,7 +567,7 @@ def run_check(
         },
         "intersections_by_seed": intersections_by_seed,
         "tournaments": tournaments_out,
-        "warnings": build_warnings(matches_by_line),
+        "warnings": resolution_warnings + build_warnings(matches_by_line),
         "summary": summary,
     }
 
