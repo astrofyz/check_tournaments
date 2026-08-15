@@ -75,6 +75,10 @@ st.set_page_config(page_title="Tournament check (by player)", layout="wide")
 st.title("Tournament check")
 st.markdown("Проверка заигранности турниров кем-то из игроков")
 
+_DEFAULT_PLAYERS = "91247\n8915\n31980\n35604\n67338\n84385"
+
+if "players_text" not in st.session_state:
+    st.session_state.players_text = _DEFAULT_PLAYERS
 if "tournaments_text" not in st.session_state:
     st.session_state.tournaments_text = ""
 if "check_intersections" not in st.session_state:
@@ -82,11 +86,25 @@ if "check_intersections" not in st.session_state:
 if "bulk_seed_meta" not in st.session_state:
     st.session_state.bulk_seed_meta = {}
 
+# Apply bulk Load results before widgets with those keys are created.
+_pending = st.session_state.pop("_pending_bulk_load", None)
+if isinstance(_pending, dict):
+    st.session_state.tournaments_text = _pending.get("tournaments_text", "")
+    st.session_state.bulk_seed_meta = _pending.get("bulk_seed_meta") or {}
+    st.session_state.check_intersections = bool(_pending.get("check_intersections", False))
+    if _pending.get("load_flash"):
+        st.session_state.load_flash = _pending["load_flash"]
+
 flash = st.session_state.pop("load_flash", None)
 if flash:
     st.success(flash)
 
-players = st.text_area("Players", height=120, placeholder="91247\n8915\n31980\n35604\n67338\n84385")
+players = st.text_area(
+    "Players",
+    height=120,
+    placeholder="One player id per line",
+    key="players_text",
+)
 tournaments = st.text_area(
     "Tournaments",
     height=120,
@@ -137,9 +155,6 @@ if load_clicked:
         entry = seed_meta_from_tour(tour)
         meta[int(entry["id"])] = entry
     ids = [str(tid) for tid in sorted(meta)]
-    st.session_state.tournaments_text = "\n".join(ids)
-    st.session_state.bulk_seed_meta = meta
-    st.session_state.check_intersections = False
     bounds = []
     if dl_min is not None:
         bounds.append(f"min {dl_min}")
@@ -151,10 +166,16 @@ if load_clicked:
         if tours_source == "snapshot"
         else ""
     )
-    st.session_state.load_flash = (
-        f"Loaded {len(ids)} tournaments for {sunday.isoformat()}{bound_s}{source_note}. "
-        "Check intersections turned off."
-    )
+    # Do not write widget keys here — apply on the next run before widgets instantiate.
+    st.session_state._pending_bulk_load = {
+        "tournaments_text": "\n".join(ids),
+        "bulk_seed_meta": meta,
+        "check_intersections": False,
+        "load_flash": (
+            f"Loaded {len(ids)} tournaments for {sunday.isoformat()}{bound_s}{source_note}. "
+            "Check intersections turned off."
+        ),
+    }
     st.rerun()
 
 c1, c2, c3 = st.columns(3)
@@ -210,7 +231,7 @@ if st.button("Run check", type="primary"):
     summary_df = pd.DataFrame(report["summary"])
     st.dataframe(
         _style_summary_clear_green(summary_df),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
