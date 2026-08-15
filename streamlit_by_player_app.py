@@ -19,7 +19,7 @@ import streamlit as st
 
 from stalnuhhin_tours import (
     StalnuhhinError,
-    fetch_tours,
+    fetch_tours_live_or_snapshot,
     filter_async_online_for_day,
     nearest_sunday,
     seed_meta_from_tour,
@@ -86,10 +86,10 @@ flash = st.session_state.pop("load_flash", None)
 if flash:
     st.success(flash)
 
-players = st.text_area("Players", height=100, placeholder="12345\n67890")
+players = st.text_area("Players", height=120, placeholder="91247\n8915\n31980\n35604\n67338\n84385")
 tournaments = st.text_area(
     "Tournaments",
-    height=100,
+    height=120,
     placeholder="Substring or id per line",
     key="tournaments_text",
 )
@@ -125,7 +125,7 @@ if load_clicked:
     sunday = nearest_sunday()
     with st.spinner(f"Loading tours for {sunday.isoformat()}…"):
         try:
-            tours = fetch_tours()
+            tours, tours_source = fetch_tours_live_or_snapshot()
             filtered = filter_async_online_for_day(
                 tours, sunday, dl_min=dl_min, dl_max=dl_max
             )
@@ -146,8 +146,13 @@ if load_clicked:
     if dl_max is not None:
         bounds.append(f"max {dl_max}")
     bound_s = f" ({', '.join(bounds)})" if bounds else ""
+    source_note = (
+        " (from local tours snapshot — live stalnuhhin returned 403)"
+        if tours_source == "snapshot"
+        else ""
+    )
     st.session_state.load_flash = (
-        f"Loaded {len(ids)} tournaments for {sunday.isoformat()}{bound_s}. "
+        f"Loaded {len(ids)} tournaments for {sunday.isoformat()}{bound_s}{source_note}. "
         "Check intersections turned off."
     )
     st.rerun()

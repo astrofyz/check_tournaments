@@ -1,4 +1,4 @@
-# Weekly rebuild of seed → intersection ID cache for faster "Check intersections" runs.
+# Weekly rebuild of intersections cache + tours snapshot for offline bulk Load.
 # 21:00 UTC Fridays ≈ 23:00 Europe/Paris in summer (CEST); 22:00 Paris in winter (CET).
 name: Build intersections cache
 
@@ -25,19 +25,22 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Build intersections cache
+      - name: Build intersections cache and tours snapshot
         env:
           TOURN_CHECK_PARALLEL_WORKERS: "8"
-        run: python build_intersections_cache.py -o data/intersections_cache.json
+        run: |
+          python build_intersections_cache.py \
+            -o data/intersections_cache.json \
+            --tours-snapshot data/tours_snapshot.json
 
       - name: Commit cache if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/intersections_cache.json
+          git add data/intersections_cache.json data/tours_snapshot.json
           if git diff --staged --quiet; then
             echo "No cache changes"
           else
-            git commit -m "chore: refresh intersections cache"
+            git commit -m "chore: refresh intersections cache and tours snapshot"
             git push
           fi

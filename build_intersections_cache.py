@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Build seed → intersection ID cache from stalnuhhin async/online tours.
+"""Build seed → intersection ID cache and a tours snapshot from stalnuhhin.
 
 Intended for weekly GitHub Actions (and local runs)::
 
-    python build_intersections_cache.py -o data/intersections_cache.json
+    python build_intersections_cache.py \\
+      -o data/intersections_cache.json \\
+      --tours-snapshot data/tours_snapshot.json
 """
 
 from __future__ import annotations
@@ -16,8 +18,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from stalnuhhin_tours import (
+    DEFAULT_TOURS_SNAPSHOT_PATH,
     DEFAULT_TOURS_URL,
     StalnuhhinError,
+    build_tours_snapshot_payload,
     fetch_tours,
     filter_async_online_all,
     utc_now_iso,
@@ -38,8 +42,10 @@ def build_cache(
     base_url: str = DEFAULT_BASE,
     workers: int | None = None,
     verbose: bool = False,
-) -> dict:
+) -> tuple[dict, dict]:
+    """Return ``(intersections_payload, tours_snapshot_payload)``."""
     tours = fetch_tours(tours_url)
+    snapshot = build_tours_snapshot_payload(tours, source=tours_url)
     async_tours = filter_async_online_all(tours)
     seed_ids = [int(t["id"]) for t in async_tours if t.get("id") is not None]
     n_workers = workers if workers is not None else _parallel_workers(len(seed_ids))
@@ -69,13 +75,14 @@ def build_cache(
             if verbose or i % 25 == 0 or i == len(seed_ids):
                 print(f"intersections {i}/{len(seed_ids)}", file=sys.stderr)
 
-    return {
+    intersections = {
         "generated_at": utc_now_iso(),
         "source": tours_url,
         "base_url": base_url.rstrip("/"),
         "seed_count": len(by_seed),
         "by_seed": dict(sorted(by_seed.items(), key=lambda kv: int(kv[0]))),
     }
+    return intersections, snapshot
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -84,7 +91,12 @@ def main(argv: list[str] | None = None) -> int:
         "-o",
         "--output",
         default="data/intersections_cache.json",
-        help="Output JSON path (default: data/intersections_cache.json)",
+        help="Intersections JSON path (default: data/intersections_cache.json)",
+    )
+    p.add_argument(
+        "--tours-snapshot",
+        default=DEFAULT_TOURS_SNAPSHOT_PATH,
+        help=f"Tours snapshot JSON path (default: {DEFAULT_TOURS_SNAPSHOT_PATH})",
     )
     p.add_argument("--tours-url", default=DEFAULT_TOURS_URL)
     p.add_argument(
@@ -101,7 +113,7 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
 
     try:
-        payload = build_cache(
+        intersections, snapshot = build_cache(
             tours_url=args.tours_url,
             base_url=args.base_url,
             workers=args.workers,
@@ -113,8 +125,13 @@ def main(argv: list[str] | None = None) -> int:
 
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Wrote {payload['seed_count']} seeds → {out}", file=sys.stderr)
+    out.write_text(json.dumps(intersections, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Wrote {intersections['seed_count']} seeds → {out}", file=sys.stderr)
+
+    snap_path = Path(args.tours_snapshot)
+    snap_path.parent.mkdir(parents=True, exist_ok=True)
+    snap_path.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Wrote {snapshot['tour_count']} tours snapshot → {snap_path}", file=sys.stderr)
     return 0
 
 
