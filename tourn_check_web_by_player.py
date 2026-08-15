@@ -227,10 +227,62 @@ def tournaments_matching_all_words(
     return [rows_by_id[i] for i in sorted(common) if i in rows_by_id]
 
 
+def _parallel_workers(n_jobs: int, env_default: int = 8) -> int:
+    """Worker count: env override if set; else 8, or 16 when ``n_jobs > 8`` (cap 32)."""
+    raw = os.environ.get("TOURN_CHECK_PARALLEL_WORKERS")
+    if raw is not None and str(raw).strip() != "":
+        try:
+            return max(1, min(32, int(raw)))
+        except ValueError:
+            pass
+    if n_jobs > 8:
+        return min(32, max(env_default, 16))
+    return env_default
+
+
+def load_intersections_cache(path: str) -> dict[int, list[int]]:
+    """Load seed_id → intersection ids from data/intersections_cache.json. Empty on miss."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    by_seed = data.get("by_seed") if isinstance(data, dict) else None
+    if not isinstance(by_seed, dict):
+        return {}
+    out: dict[int, list[int]] = {}
+    for k, v in by_seed.items():
+        try:
+            tid = int(k)
+        except (TypeError, ValueError):
+            continue
+        if not isinstance(v, list):
+            continue
+        ids: list[int] = []
+        for x in v:
+            try:
+                ids.append(int(x))
+            except (TypeError, ValueError):
+                continue
+        out[tid] = sorted(set(ids))
+    return out
+
+
+DEFAULT_INTERSECTIONS_CACHE_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "data",
+    "intersections_cache.json",
+)
+
+
 def resolve_seeds_mixed(
     client: RatingClient,
     lines: list[str],
     date_end_after: str | None,
+    *,
+    seed_meta_override: dict[int, dict[str, Any]] | None = None,
+    parallel: bool = True,
+    parallel_workers: int | None = None,
 ) -> tuple[
     dict[int, dict[str, Any]],
     dict[str, list[dict[str, Any]]],
@@ -242,32 +294,95 @@ def resolve_seeds_mixed(
     Name search: strip leading non-alphanumeric, then GET /tournaments?name[]=full string.
     If that returns nothing and there are at least two whitespace-separated tokens, run one
     search per word and intersect by tournament id (AND of substring matches).
+
+    When ``seed_meta_override`` contains an id, skip the live ``GET /tournaments/{id}``.
+    Digit-id lookups that still need the API are fetched in parallel when ``parallel`` is set.
     """
     seed_meta: dict[int, dict[str, Any]] = {}
     matches_by_line: dict[str, list[dict[str, Any]]] = {}
     order: list[int] = []
     resolution_warnings: list[dict[str, Any]] = []
+    override = seed_meta_override or {}
+
+    id_lines: list[str] = []
+    ids_to_fetch: list[int] = []
+    seen_fetch: set[int] = set()
+    for line in lines:
+        if tournament_line_is_seed_id(line):
+            id_lines.append(line)
+            tid_raw = int(line)
+            if tid_raw in override:
+                continue
+            if tid_raw not in seen_fetch:
+                seen_fetch.add(tid_raw)
+                ids_to_fetch.append(tid_raw)
+
+    fetched_rows: dict[int, dict[str, Any] | None] = {}
+    if ids_to_fetch:
+        workers = parallel_workers if parallel_workers is not None else _parallel_workers(len(ids_to_fetch))
+        base_url = client.base_url
+        timeout = client.timeout
+        verbose = client.verbose
+        if parallel and len(ids_to_fetch) > 1:
+
+            def _id_job(tid: int) -> tuple[int, dict[str, Any] | None]:
+                c = _thread_local_client(base_url, timeout, verbose)
+                return tid, c.fetch_tournament_item(tid)
+
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                futures = [pool.submit(_id_job, tid) for tid in ids_to_fetch]
+                for fut in as_completed(futures):
+                    tid, row = fut.result()
+                    fetched_rows[tid] = row
+        else:
+            for tid in ids_to_fetch:
+                fetched_rows[tid] = client.fetch_tournament_item(tid)
+
+    def _add_seed_from_meta(tid: int, meta: dict[str, Any], source_line: str) -> None:
+        if tid not in seed_meta:
+            seed_meta[tid] = {
+                "id": tid,
+                "name": meta.get("name"),
+                "source_substrings": [],
+                "editor_surnames": list(meta.get("editor_surnames") or []),
+                "difficultyForecast": meta.get("difficultyForecast"),
+            }
+            order.append(tid)
+        if source_line not in seed_meta[tid]["source_substrings"]:
+            seed_meta[tid]["source_substrings"].append(source_line)
+
+    def _add_seed_from_row(row: dict[str, Any], source_line: str) -> int | None:
+        if row.get("id") is None:
+            return None
+        tid = int(row["id"])
+        if tid not in seed_meta:
+            seed_meta[tid] = {
+                "id": tid,
+                "name": row.get("name"),
+                "source_substrings": [],
+                "editor_surnames": editor_surnames_from_tournament(row),
+                "difficultyForecast": row.get("difficultyForecast"),
+            }
+            order.append(tid)
+        if source_line not in seed_meta[tid]["source_substrings"]:
+            seed_meta[tid]["source_substrings"].append(source_line)
+        return tid
 
     for line in lines:
         if tournament_line_is_seed_id(line):
             tid_raw = int(line)
-            row = client.fetch_tournament_item(tid_raw)
+            if tid_raw in override:
+                meta = override[tid_raw]
+                tid = int(meta.get("id", tid_raw))
+                matches_by_line[line] = [{"id": tid, "name": meta.get("name")}]
+                _add_seed_from_meta(tid, meta, line)
+                continue
+            row = fetched_rows.get(tid_raw)
             if row is None or row.get("id") is None:
                 matches_by_line[line] = []
                 continue
-            tid = int(row["id"])
+            tid = _add_seed_from_row(row, line)
             matches_by_line[line] = [{"id": tid, "name": row.get("name")}]
-            if tid not in seed_meta:
-                seed_meta[tid] = {
-                    "id": tid,
-                    "name": row.get("name"),
-                    "source_substrings": [],
-                    "editor_surnames": editor_surnames_from_tournament(row),
-                    "difficultyForecast": row.get("difficultyForecast"),
-                }
-                order.append(tid)
-            if line not in seed_meta[tid]["source_substrings"]:
-                seed_meta[tid]["source_substrings"].append(line)
         else:
             normalized = strip_leading_until_alnum(line)
             if not normalized:
@@ -288,21 +403,9 @@ def resolve_seeds_mixed(
                     )
             matches_by_line[line] = [{"id": r.get("id"), "name": r.get("name")} for r in rows]
             for trow in rows:
-                tid = trow.get("id")
-                if tid is None:
+                if trow.get("id") is None:
                     continue
-                tid = int(tid)
-                if tid not in seed_meta:
-                    seed_meta[tid] = {
-                        "id": tid,
-                        "name": trow.get("name"),
-                        "source_substrings": [],
-                        "editor_surnames": editor_surnames_from_tournament(trow),
-                        "difficultyForecast": trow.get("difficultyForecast"),
-                    }
-                    order.append(tid)
-                if line not in seed_meta[tid]["source_substrings"]:
-                    seed_meta[tid]["source_substrings"].append(line)
+                _add_seed_from_row(trow, line)
 
     return seed_meta, matches_by_line, order, resolution_warnings
 
@@ -420,8 +523,16 @@ def run_check(
     base_url: str = DEFAULT_BASE,
     date_end_after: str | None = None,
     verbose: bool = False,
+    include_intersections: bool = True,
+    seed_meta_override: dict[int, dict[str, Any]] | None = None,
+    intersections_cache_path: str | None = DEFAULT_INTERSECTIONS_CACHE_PATH,
 ) -> dict[str, Any]:
-    """Run overlap check using /players/{id}/tournaments; same report shape as tourn_check_web.run_check."""
+    """Run overlap check using /players/{id}/tournaments; same report shape as tourn_check_web.run_check.
+
+    When ``include_intersections`` is False, skip intersection fetches (listed-seed overlap only).
+    ``seed_meta_override`` supplies prebuilt meta (e.g. from stalnuhhin) to skip id lookups.
+    ``intersections_cache_path`` is read when intersections are enabled; misses fall back to live API.
+    """
     timing = os.environ.get("TOURN_CHECK_TIMING", "").lower() in ("1", "true", "yes")
     t_mark = time.perf_counter()
 
@@ -443,39 +554,68 @@ def run_check(
         "no",
         "off",
     )
-    try:
-        parallel_workers = max(1, min(32, int(os.environ.get("TOURN_CHECK_PARALLEL_WORKERS", "8"))))
-    except ValueError:
-        parallel_workers = 8
 
     seed_meta, matches_by_line, seed_order, resolution_warnings = resolve_seeds_mixed(
-        client, tournament_lines, date_end_after
+        client,
+        tournament_lines,
+        date_end_after,
+        seed_meta_override=seed_meta_override,
+        parallel=parallel,
     )
     _timing_note("resolve seeds (name/id lookups)")
 
+    parallel_workers = _parallel_workers(len(seed_order)) if parallel else 1
+
     intersections_by_seed: dict[str, list[int]] = {}
     all_tournament_ids: set[int] = set(seed_meta.keys())
+    cache_hits = 0
+    cache_misses = 0
 
-    if parallel and len(seed_order) > 1:
-
-        def _inter_job(tid: int) -> tuple[int, list[int]]:
-            c = _thread_local_client(base_url, timeout, verbose)
-            rows = c.fetch_intersections(tid)
-            return tid, intersection_ids_from_response(rows)
-
-        with ThreadPoolExecutor(max_workers=parallel_workers) as pool:
-            futures = [pool.submit(_inter_job, tid) for tid in seed_order]
-            for fut in as_completed(futures):
-                tid, iids = fut.result()
+    if include_intersections:
+        inter_cache = (
+            load_intersections_cache(intersections_cache_path)
+            if intersections_cache_path
+            else {}
+        )
+        need_fetch: list[int] = []
+        for tid in seed_order:
+            if tid in inter_cache:
+                iids = inter_cache[tid]
                 intersections_by_seed[str(tid)] = iids
                 all_tournament_ids.update(iids)
+                cache_hits += 1
+            else:
+                need_fetch.append(tid)
+
+        if need_fetch:
+            cache_misses = len(need_fetch)
+            if parallel and len(need_fetch) > 1:
+
+                def _inter_job(tid: int) -> tuple[int, list[int]]:
+                    c = _thread_local_client(base_url, timeout, verbose)
+                    rows = c.fetch_intersections(tid)
+                    return tid, intersection_ids_from_response(rows)
+
+                with ThreadPoolExecutor(max_workers=parallel_workers) as pool:
+                    futures = [pool.submit(_inter_job, tid) for tid in need_fetch]
+                    for fut in as_completed(futures):
+                        tid, iids = fut.result()
+                        intersections_by_seed[str(tid)] = iids
+                        all_tournament_ids.update(iids)
+            else:
+                for tid in need_fetch:
+                    inter_rows = client.fetch_intersections(tid)
+                    iids = intersection_ids_from_response(inter_rows)
+                    intersections_by_seed[str(tid)] = iids
+                    all_tournament_ids.update(iids)
+        _timing_note(
+            f"fetch intersections ({len(seed_order)} seeds, cache_hits={cache_hits}, "
+            f"live={cache_misses} → {len(all_tournament_ids)} tournament ids total)"
+        )
     else:
         for tid in seed_order:
-            inter_rows = client.fetch_intersections(tid)
-            iids = intersection_ids_from_response(inter_rows)
-            intersections_by_seed[str(tid)] = iids
-            all_tournament_ids.update(iids)
-    _timing_note(f"fetch intersections ({len(seed_order)} seeds → {len(all_tournament_ids)} tournament ids total)")
+            intersections_by_seed[str(tid)] = []
+        _timing_note(f"skip intersections ({len(seed_order)} seeds, listed-only)")
 
     unique_player_ids = list(dict.fromkeys(player_ids))
     tournaments_per_player: dict[int, set[int]] = {}
@@ -564,6 +704,9 @@ def run_check(
             "date_end_strictly_after": date_end_after,
             "base_url": base_url,
             "overlap_strategy": "player_tournaments_api",
+            "include_intersections": include_intersections,
+            "intersections_cache_hits": cache_hits if include_intersections else 0,
+            "intersections_cache_misses": cache_misses if include_intersections else 0,
         },
         "intersections_by_seed": intersections_by_seed,
         "tournaments": tournaments_out,

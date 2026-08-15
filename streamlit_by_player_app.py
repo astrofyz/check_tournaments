@@ -17,12 +17,20 @@ import os
 import pandas as pd
 import streamlit as st
 
+from stalnuhhin_tours import (
+    StalnuhhinError,
+    fetch_tours,
+    filter_async_online_for_day,
+    nearest_sunday,
+    seed_meta_from_tour,
+)
 from tourn_check_web_by_player import (
     DEFAULT_BASE,
     RatingAPIError,
     parse_player_ids_from_text,
     parse_tournament_lines_from_text,
     run_check,
+    tournament_line_is_seed_id,
 )
 
 _CLEAR_ROW_BG = "background-color: #e8f5e9"
@@ -36,16 +44,115 @@ def _style_summary_clear_green(df: pd.DataFrame) -> pd.io.formats.style.Styler:
 
     return df.style.apply(row_style, axis=1)
 
+
+def _parse_optional_float(raw: str) -> float | None:
+    s = (raw or "").strip().replace(",", ".")
+    if not s:
+        return None
+    return float(s)
+
+
+def _seed_meta_override_for_lines(
+    tournament_lines: list[str],
+    cached: dict[int, dict],
+) -> dict[int, dict] | None:
+    """Use Load cache only when every digit line is present; otherwise None (full resolve)."""
+    if not cached:
+        return None
+    ids: list[int] = []
+    for line in tournament_lines:
+        if not tournament_line_is_seed_id(line):
+            return None
+        ids.append(int(line))
+    if not ids:
+        return None
+    if any(i not in cached for i in ids):
+        return None
+    return {i: cached[i] for i in ids}
+
+
 st.set_page_config(page_title="Tournament check (by player)", layout="wide")
 st.title("Tournament check")
-st.markdown(
-    "Проверка заигранности турниров кем-то из игроков"
-)
+st.markdown("Проверка заигранности турниров кем-то из игроков")
+
+if "tournaments_text" not in st.session_state:
+    st.session_state.tournaments_text = ""
+if "check_intersections" not in st.session_state:
+    st.session_state.check_intersections = True
+if "bulk_seed_meta" not in st.session_state:
+    st.session_state.bulk_seed_meta = {}
+
+flash = st.session_state.pop("load_flash", None)
+if flash:
+    st.success(flash)
 
 players = st.text_area("Players", height=100, placeholder="12345\n67890")
-tournaments = st.text_area("Tournaments", height=100, placeholder="Substring or id per line")
+tournaments = st.text_area(
+    "Tournaments",
+    height=100,
+    placeholder="Substring or id per line",
+    key="tournaments_text",
+)
 
-c1, c2 = st.columns(2)
+st.subheader("Bulk load (stalnuhhin)")
+dl1, dl2 = st.columns(2)
+with dl1:
+    dl_min_raw = st.text_input(
+        "Min difficultyForecast",
+        value="",
+        placeholder="e.g. 2.5",
+        help="Empty = no minimum. Missing forecasts excluded when either bound is set.",
+    )
+with dl2:
+    dl_max_raw = st.text_input(
+        "Max difficultyForecast",
+        value="",
+        placeholder="e.g. 5",
+        help="Empty = no maximum.",
+    )
+load_clicked = st.button("Load nearest Sunday асинхрон/онлайн")
+
+if load_clicked:
+    try:
+        dl_min = _parse_optional_float(dl_min_raw)
+        dl_max = _parse_optional_float(dl_max_raw)
+    except ValueError:
+        st.error("difficultyForecast min/max must be numbers (or empty).")
+        st.stop()
+    if dl_min is not None and dl_max is not None and dl_min > dl_max:
+        st.error(f"Min difficultyForecast ({dl_min}) must be ≤ max ({dl_max}).")
+        st.stop()
+    sunday = nearest_sunday()
+    with st.spinner(f"Loading tours for {sunday.isoformat()}…"):
+        try:
+            tours = fetch_tours()
+            filtered = filter_async_online_for_day(
+                tours, sunday, dl_min=dl_min, dl_max=dl_max
+            )
+        except (StalnuhhinError, ValueError) as exc:
+            st.error(str(exc))
+            st.stop()
+    meta: dict[int, dict] = {}
+    for tour in filtered:
+        entry = seed_meta_from_tour(tour)
+        meta[int(entry["id"])] = entry
+    ids = [str(tid) for tid in sorted(meta)]
+    st.session_state.tournaments_text = "\n".join(ids)
+    st.session_state.bulk_seed_meta = meta
+    st.session_state.check_intersections = False
+    bounds = []
+    if dl_min is not None:
+        bounds.append(f"min {dl_min}")
+    if dl_max is not None:
+        bounds.append(f"max {dl_max}")
+    bound_s = f" ({', '.join(bounds)})" if bounds else ""
+    st.session_state.load_flash = (
+        f"Loaded {len(ids)} tournaments for {sunday.isoformat()}{bound_s}. "
+        "Check intersections turned off."
+    )
+    st.rerun()
+
+c1, c2, c3 = st.columns(3)
 with c1:
     date_after = st.text_input(
         "dateEnd strictly after (optional)",
@@ -58,6 +165,12 @@ with c2:
         "API base URL",
         value=env_base or DEFAULT_BASE,
     )
+with c3:
+    check_intersections = st.checkbox(
+        "Check intersections",
+        key="check_intersections",
+        help="When off, only listed tournament IDs are checked (faster for bulk lists).",
+    )
 
 if st.button("Run check", type="primary"):
     try:
@@ -69,6 +182,9 @@ if st.button("Run check", type="primary"):
 
     base = (base_url.strip() or DEFAULT_BASE).rstrip("/")
     date_end = date_after.strip() or None
+    override = _seed_meta_override_for_lines(
+        tournament_lines, st.session_state.get("bulk_seed_meta") or {}
+    )
 
     with st.spinner("Running check…"):
         try:
@@ -78,6 +194,8 @@ if st.button("Run check", type="primary"):
                 base_url=base,
                 date_end_after=date_end,
                 verbose=False,
+                include_intersections=bool(check_intersections),
+                seed_meta_override=override,
             )
         except RatingAPIError as exc:
             st.error(str(exc))

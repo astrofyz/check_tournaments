@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tournament check (by player API)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Tournament check</h1>
+  <p>
+    Uses <code>GET /players/{id}/tournaments/</code> plus seed lookups and intersections.
+    One player id per line. Each tournament line: if it is digits only, it is a tournament id;
+    otherwise the API is queried by name after stripping leading punctuation. If the full line
+    matches nothing but there are several words, each word is searched and results are intersected
+    (tournaments whose names match every word as a substring).
+  </p>
+
+  <label for="players">Players</label>
+  <textarea id="players" placeholder="12345&#10;67890"></textarea>
+
+  <label for="tournaments">Tournaments</label>
+  <textarea id="tournaments" placeholder="Substring or id per line"></textarea>
+
+  <label for="date">dateEnd strictly after (optional, name search only)</label>
+  <input id="date" type="text" placeholder="YYYY-MM-DD">
+
+  <label for="base">API base URL</label>
+  <input id="base" type="text" value="https://api.rating.chgk.net">
+
+  <div>
+    <button type="button" id="go">Run check</button>
+  </div>
+
+  <div id="warn"></div>
+  <div id="out"></div>
+
+  <p class="note">
+    Open this folder with a local static server (for example <code>python3 -m http.server</code> inside <code>web_by_player_static</code>) so the browser can load <code>app.js</code>. If requests to the API fail with a network or CORS error, use the FastAPI app instead (same machine proxies the API).
+  </p>
+
+  <script src="app.js"></script>
+</body>
+</html>
