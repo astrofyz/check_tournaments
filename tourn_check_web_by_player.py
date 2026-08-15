@@ -274,6 +274,29 @@ DEFAULT_INTERSECTIONS_CACHE_PATH = os.path.join(
     "intersections_cache.json",
 )
 
+# Cap how many API hits one name line can expand into (short names like "B-52" match 100+).
+DEFAULT_MAX_NAME_MATCHES = 5
+
+
+def _tour_date_end_key(row: dict[str, Any]) -> str:
+    """Sort key for preferring newer tournaments (ISO dateEnd strings sort lexicographically)."""
+    v = row.get("dateEnd") or row.get("dateStart") or ""
+    return str(v)
+
+
+def select_name_matches(
+    rows: list[dict[str, Any]],
+    *,
+    max_matches: int = DEFAULT_MAX_NAME_MATCHES,
+) -> tuple[list[dict[str, Any]], int]:
+    """Keep up to ``max_matches`` rows with the latest dateEnd; return (kept, total_before_cap)."""
+    usable = [r for r in rows if isinstance(r, dict) and r.get("id") is not None]
+    total = len(usable)
+    if max_matches <= 0 or total <= max_matches:
+        return usable, total
+    ranked = sorted(usable, key=_tour_date_end_key, reverse=True)
+    return ranked[:max_matches], total
+
 
 def resolve_seeds_mixed(
     client: RatingClient,
@@ -283,6 +306,7 @@ def resolve_seeds_mixed(
     seed_meta_override: dict[int, dict[str, Any]] | None = None,
     parallel: bool = True,
     parallel_workers: int | None = None,
+    max_name_matches: int = DEFAULT_MAX_NAME_MATCHES,
 ) -> tuple[
     dict[int, dict[str, Any]],
     dict[str, list[dict[str, Any]]],
@@ -295,6 +319,8 @@ def resolve_seeds_mixed(
     If that returns nothing and there are at least two whitespace-separated tokens, run one
     search per word and intersect by tournament id (AND of substring matches).
 
+    Ambiguous name hits are capped to ``max_name_matches`` newest by ``dateEnd`` (warning added).
+
     When ``seed_meta_override`` contains an id, skip the live ``GET /tournaments/{id}``.
     Digit-id lookups that still need the API are fetched in parallel when ``parallel`` is set.
     """
@@ -304,18 +330,19 @@ def resolve_seeds_mixed(
     resolution_warnings: list[dict[str, Any]] = []
     override = seed_meta_override or {}
 
-    id_lines: list[str] = []
     ids_to_fetch: list[int] = []
     seen_fetch: set[int] = set()
+    name_lines: list[str] = []
     for line in lines:
         if tournament_line_is_seed_id(line):
-            id_lines.append(line)
             tid_raw = int(line)
             if tid_raw in override:
                 continue
             if tid_raw not in seen_fetch:
                 seen_fetch.add(tid_raw)
                 ids_to_fetch.append(tid_raw)
+        else:
+            name_lines.append(line)
 
     fetched_rows: dict[int, dict[str, Any] | None] = {}
     if ids_to_fetch:
@@ -337,6 +364,49 @@ def resolve_seeds_mixed(
         else:
             for tid in ids_to_fetch:
                 fetched_rows[tid] = client.fetch_tournament_item(tid)
+
+    # Name searches: parallel when several distinct lines (each line may still paginate).
+    name_search_rows: dict[str, list[dict[str, Any]]] = {}
+    if name_lines:
+        workers = parallel_workers if parallel_workers is not None else _parallel_workers(len(name_lines))
+        base_url = client.base_url
+        timeout = client.timeout
+        verbose = client.verbose
+
+        def _name_job(line: str) -> tuple[str, list[dict[str, Any]], dict[str, Any] | None]:
+            c = _thread_local_client(base_url, timeout, verbose)
+            normalized = strip_leading_until_alnum(line)
+            if not normalized:
+                return line, [], None
+            rows = c.fetch_tournaments_by_name(normalized, date_end_after)
+            warn: dict[str, Any] | None = None
+            words = [w for w in normalized.split() if w]
+            if not rows and len(words) >= 2:
+                rows = tournaments_matching_all_words(c, words, date_end_after)
+                if rows:
+                    warn = {
+                        "type": "name_search_word_intersection",
+                        "substring": line,
+                        "normalized": normalized,
+                        "words": words,
+                    }
+            return line, rows, warn
+
+        unique_name_lines = list(dict.fromkeys(name_lines))
+        if parallel and len(unique_name_lines) > 1:
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                futures = [pool.submit(_name_job, ln) for ln in unique_name_lines]
+                for fut in as_completed(futures):
+                    line, rows, warn = fut.result()
+                    name_search_rows[line] = rows
+                    if warn:
+                        resolution_warnings.append(warn)
+        else:
+            for line in unique_name_lines:
+                line_out, rows, warn = _name_job(line)
+                name_search_rows[line_out] = rows
+                if warn:
+                    resolution_warnings.append(warn)
 
     def _add_seed_from_meta(tid: int, meta: dict[str, Any], source_line: str) -> None:
         if tid not in seed_meta:
@@ -388,26 +458,26 @@ def resolve_seeds_mixed(
             if not normalized:
                 matches_by_line[line] = []
                 continue
-            rows = client.fetch_tournaments_by_name(normalized, date_end_after)
-            words = [w for w in normalized.split() if w]
-            if not rows and len(words) >= 2:
-                rows = tournaments_matching_all_words(client, words, date_end_after)
-                if rows:
-                    resolution_warnings.append(
-                        {
-                            "type": "name_search_word_intersection",
-                            "substring": line,
-                            "normalized": normalized,
-                            "words": words,
-                        }
-                    )
-            matches_by_line[line] = [{"id": r.get("id"), "name": r.get("name")} for r in rows]
-            for trow in rows:
-                if trow.get("id") is None:
-                    continue
+            rows = name_search_rows.get(line, [])
+            kept, total = select_name_matches(rows, max_matches=max_name_matches)
+            if total > len(kept):
+                resolution_warnings.append(
+                    {
+                        "type": "name_match_truncated",
+                        "substring": line,
+                        "normalized": normalized,
+                        "total_matches": total,
+                        "kept": len(kept),
+                        "kept_ids": [r.get("id") for r in kept],
+                        "hint": "Use tournament id, a longer name, or dateEnd filter to narrow results.",
+                    }
+                )
+            matches_by_line[line] = [{"id": r.get("id"), "name": r.get("name")} for r in kept]
+            for trow in kept:
                 _add_seed_from_row(trow, line)
 
     return seed_meta, matches_by_line, order, resolution_warnings
+
 
 
 def short_label_from_status(status: str) -> str:

@@ -110,6 +110,10 @@ tournaments = st.text_area(
     height=120,
     placeholder="Substring or id per line",
     key="tournaments_text",
+    help=(
+        "Prefer numeric ids. Short names (e.g. «Зефир», «B-52») match many tournaments; "
+        "only the 5 newest by dateEnd are checked, and a warning is shown."
+    ),
 )
 
 st.subheader("Bulk load (https://chgk.stalnuhhin.ee)")
@@ -236,6 +240,17 @@ if st.button("Run check", type="primary"):
     )
 
     warns = report.get("warnings") or []
+    trunc = [w for w in warns if w.get("type") == "name_match_truncated"]
+    if trunc:
+        bits = [
+            f"«{w.get('substring')}»: {w.get('total_matches')} → {w.get('kept')}"
+            for w in trunc
+        ]
+        st.warning(
+            "Some name searches matched many tournaments; only the newest were checked. "
+            + "; ".join(bits)
+            + ". Prefer ids or a longer title / dateEnd filter."
+        )
     if warns:
         with st.expander(f"Warnings ({len(warns)})", expanded=True):
             st.json(warns)
