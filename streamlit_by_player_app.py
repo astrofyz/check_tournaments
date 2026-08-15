@@ -112,7 +112,7 @@ tournaments = st.text_area(
     key="tournaments_text",
 )
 
-st.subheader("Bulk load (stalnuhhin)")
+st.subheader("Bulk load (https://chgk.stalnuhhin.ee)")
 dl1, dl2 = st.columns(2)
 with dl1:
     dl_min_raw = st.text_input(
