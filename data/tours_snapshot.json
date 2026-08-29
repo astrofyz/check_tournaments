@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-21T21:17:00Z",
+  "generated_at": "2026-08-29T02:59:05Z",
   "source": "https://chgk.stalnuhhin.ee/api/tours.php",
-  "tour_count": 520,
+  "tour_count": 516,
   "tours": [
     {
       "id": 4628,
@@ -756,14 +756,22 @@
       "id": 12833,
       "name": "TW",
       "longName": "Благотворительный синхрон TW",
-      "dateStart": "2026-11-01T09:00:00+00:00",
-      "dateEnd": "2026-11-08T09:00:00+00:00",
+      "dateStart": "2027-03-05T09:00:00+00:00",
+      "dateEnd": "2027-03-12T09:00:00+00:00",
       "type": {
         "id": 3,
         "name": "Синхрон",
         "shortName": "С"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 231862,
+          "name": "Антон",
+          "patronymic": "Павлович",
+          "surname": "Березанский",
+          "gotQuestionsTag": 12474
+        }
+      ]
     },
     {
       "id": 12985,
@@ -805,64 +813,6 @@
           "patronymic": "Яковлевич",
           "surname": "Моносов",
           "gotQuestionsTag": 71
-        }
-      ]
-    },
-    {
-      "id": 12994,
-      "name": "ППП XXIII",
-      "longName": "Первенство Правого Полушария, часть XXIII",
-      "dateStart": "2026-08-08T09:00:00+00:00",
-      "dateEnd": "2026-08-15T09:00:00+00:00",
-      "difficultyForecast": 7,
-      "type": {
-        "id": 3,
-        "name": "Синхрон",
-        "shortName": "С"
-      },
-      "editors": [
-        {
-          "id": 39254,
-          "name": "Артём",
-          "patronymic": "Александрович",
-          "surname": "Колесов",
-          "gotQuestionsTag": 111
-        }
-      ]
-    },
-    {
-      "id": 13017,
-      "name": "Holiday Cup: часть вторая (асинхрон и онлайн)",
-      "longName": "Holiday Cup: часть вторая (асинхрон и онлайн)",
-      "dateStart": "2026-07-18T09:00:00+00:00",
-      "dateEnd": "2026-08-18T20:55:00+00:00",
-      "difficultyForecast": 3.5,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 39254,
-          "name": "Артём",
-          "patronymic": "Александрович",
-          "surname": "Колесов",
-          "gotQuestionsTag": 111
-        },
-        {
-          "id": 69107,
-          "name": "Андрей",
-          "patronymic": "Владимирович",
-          "surname": "Волков",
-          "gotQuestionsTag": 27
-        },
-        {
-          "id": 87637,
-          "name": "Антон",
-          "patronymic": "Владимирович",
-          "surname": "Саксонов",
-          "gotQuestionsTag": 105
         }
       ]
     },
@@ -1600,78 +1550,6 @@
       ]
     },
     {
-      "id": 13193,
-      "name": "Карнавальный салат (асинхрон)",
-      "longName": "Международный асинхронный турнир \"Карнавальный салат 2026\"",
-      "dateStart": "2026-03-01T09:00:00+00:00",
-      "dateEnd": "2026-08-15T19:45:00+00:00",
-      "difficultyForecast": 3,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 21375,
-          "name": "Максим",
-          "patronymic": "Леонидович",
-          "surname": "Мозуль",
-          "gotQuestionsTag": 85
-        },
-        {
-          "id": 90455,
-          "name": "Сергей",
-          "patronymic": "Сергеевич",
-          "surname": "Никольский",
-          "gotQuestionsTag": 12163
-        },
-        {
-          "id": 145142,
-          "name": "Андрей",
-          "patronymic": "Александрович",
-          "surname": "Кунилов",
-          "gotQuestionsTag": 88
-        }
-      ]
-    },
-    {
-      "id": 13215,
-      "name": "Sims To Be: Vol. 23",
-      "longName": "Sims To Be: Vol. 23",
-      "dateStart": "2026-08-14T16:30:00+00:00",
-      "dateEnd": "2026-08-21T16:30:00+00:00",
-      "difficultyForecast": 4.2,
-      "type": {
-        "id": 3,
-        "name": "Синхрон",
-        "shortName": "С"
-      },
-      "editors": [
-        {
-          "id": 16581,
-          "name": "Андрей",
-          "patronymic": "Викторович",
-          "surname": "Кругов",
-          "gotQuestionsTag": 6800
-        },
-        {
-          "id": 20700,
-          "name": "Максим",
-          "patronymic": "Петрович",
-          "surname": "Мерзляков",
-          "gotQuestionsTag": 267
-        },
-        {
-          "id": 36120,
-          "name": "Серафим",
-          "patronymic": "Александрович",
-          "surname": "Шибанов",
-          "gotQuestionsTag": 336
-        }
-      ]
-    },
-    {
       "id": 13220,
       "name": "Синхрон Моносова 30 (асинхрон)",
       "longName": "Синхрон Моносова 30 (асинхрон)",
@@ -2384,7 +2262,15 @@
         "name": "Синхрон",
         "shortName": "С"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 136310,
+          "name": "Антон",
+          "patronymic": "Анатольевич",
+          "surname": "Карпиевич",
+          "gotQuestionsTag": 12255
+        }
+      ]
     },
     {
       "id": 13363,
@@ -2398,7 +2284,15 @@
         "name": "Асинхрон",
         "shortName": "А"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 136310,
+          "name": "Антон",
+          "patronymic": "Анатольевич",
+          "surname": "Карпиевич",
+          "gotQuestionsTag": 12255
+        }
+      ]
     },
     {
       "id": 13364,
@@ -2412,7 +2306,15 @@
         "name": "Синхрон",
         "shortName": "С"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 72211,
+          "name": "Мария",
+          "patronymic": "Владимировна",
+          "surname": "Подрядчикова",
+          "gotQuestionsTag": 5
+        }
+      ]
     },
     {
       "id": 13365,
@@ -2426,7 +2328,15 @@
         "name": "Асинхрон",
         "shortName": "А"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 72211,
+          "name": "Мария",
+          "patronymic": "Владимировна",
+          "surname": "Подрядчикова",
+          "gotQuestionsTag": 5
+        }
+      ]
     },
     {
       "id": 13366,
@@ -2440,7 +2350,15 @@
         "name": "Синхрон",
         "shortName": "С"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 107043,
+          "name": "Григорий",
+          "patronymic": "Александрович",
+          "surname": "Зырянов",
+          "gotQuestionsTag": 651
+        }
+      ]
     },
     {
       "id": 13367,
@@ -2454,7 +2372,15 @@
         "name": "Асинхрон",
         "shortName": "А"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 107043,
+          "name": "Григорий",
+          "patronymic": "Александрович",
+          "surname": "Зырянов",
+          "gotQuestionsTag": 651
+        }
+      ]
     },
     {
       "id": 13368,
@@ -2468,7 +2394,29 @@
         "name": "Синхрон",
         "shortName": "С"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 4064,
+          "name": "Алексей",
+          "patronymic": "Владимирович",
+          "surname": "Бороненко",
+          "gotQuestionsTag": 101
+        },
+        {
+          "id": 26988,
+          "name": "Дмитрий",
+          "patronymic": "Александрович",
+          "surname": "Родионов",
+          "gotQuestionsTag": 308
+        },
+        {
+          "id": 30597,
+          "name": "Павел",
+          "patronymic": "Николаевич",
+          "surname": "Столяров",
+          "gotQuestionsTag": 449
+        }
+      ]
     },
     {
       "id": 13369,
@@ -2482,14 +2430,36 @@
         "name": "Асинхрон",
         "shortName": "А"
       },
-      "editors": []
+      "editors": [
+        {
+          "id": 4064,
+          "name": "Алексей",
+          "patronymic": "Владимирович",
+          "surname": "Бороненко",
+          "gotQuestionsTag": 101
+        },
+        {
+          "id": 26988,
+          "name": "Дмитрий",
+          "patronymic": "Александрович",
+          "surname": "Родионов",
+          "gotQuestionsTag": 308
+        },
+        {
+          "id": 30597,
+          "name": "Павел",
+          "patronymic": "Николаевич",
+          "surname": "Столяров",
+          "gotQuestionsTag": 449
+        }
+      ]
     },
     {
       "id": 13378,
       "name": "Асинхронная Сигулда `26",
       "longName": "Асинхрон на вопросах Кубка Сигулды `26",
       "dateStart": "2026-03-07T11:00:00+00:00",
-      "dateEnd": "2026-08-16T20:55:00+00:00",
+      "dateEnd": "2026-09-16T20:55:00+00:00",
       "difficultyForecast": 5.15,
       "type": {
         "id": 8,
@@ -2546,7 +2516,7 @@
       "name": "Кубок Эквестрии — 47 (асинхрон)",
       "longName": "Кубок Эквестрии — 47 (асинхрон)",
       "dateStart": "2026-07-25T10:00:00+00:00",
-      "dateEnd": "2026-08-23T18:55:00+00:00",
+      "dateEnd": "2026-08-30T20:55:00+00:00",
       "difficultyForecast": 3,
       "type": {
         "id": 8,
@@ -2602,42 +2572,6 @@
           "patronymic": "Дмитриевич",
           "surname": "Красковский",
           "gotQuestionsTag": 12487
-        }
-      ]
-    },
-    {
-      "id": 13393,
-      "name": "День солнца — 2026 (асинхрон)",
-      "longName": "День солнца — 2026 (асинхрон)",
-      "dateStart": "2026-07-09T19:00:00+00:00",
-      "dateEnd": "2026-08-16T21:00:00+00:00",
-      "difficultyForecast": 4.5,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 20700,
-          "name": "Максим",
-          "patronymic": "Петрович",
-          "surname": "Мерзляков",
-          "gotQuestionsTag": 267
-        },
-        {
-          "id": 90455,
-          "name": "Сергей",
-          "patronymic": "Сергеевич",
-          "surname": "Никольский",
-          "gotQuestionsTag": 12163
-        },
-        {
-          "id": 137496,
-          "name": "Руслан",
-          "patronymic": "Рашидович",
-          "surname": "Алиев",
-          "gotQuestionsTag": 269
         }
       ]
     },
@@ -2751,42 +2685,6 @@
       ]
     },
     {
-      "id": 13400,
-      "name": "Кубок Эквестрии — 48 (синхрон)",
-      "longName": "Кубок Эквестрии — 48 (синхрон)",
-      "dateStart": "2026-08-08T09:00:00+00:00",
-      "dateEnd": "2026-08-15T09:00:00+00:00",
-      "difficultyForecast": 3,
-      "type": {
-        "id": 3,
-        "name": "Синхрон",
-        "shortName": "С"
-      },
-      "editors": [
-        {
-          "id": 20700,
-          "name": "Максим",
-          "patronymic": "Петрович",
-          "surname": "Мерзляков",
-          "gotQuestionsTag": 267
-        },
-        {
-          "id": 36120,
-          "name": "Серафим",
-          "patronymic": "Александрович",
-          "surname": "Шибанов",
-          "gotQuestionsTag": 336
-        },
-        {
-          "id": 121226,
-          "name": "Павел",
-          "patronymic": "Викторович",
-          "surname": "Парфианович",
-          "gotQuestionsTag": 12332
-        }
-      ]
-    },
-    {
       "id": 13401,
       "name": "Кубок Эквестрии — 48 (асинхрон)",
       "longName": "Кубок Эквестрии — 48 (асинхрон)",
@@ -2819,42 +2717,6 @@
           "patronymic": "Викторович",
           "surname": "Парфианович",
           "gotQuestionsTag": 12332
-        }
-      ]
-    },
-    {
-      "id": 13403,
-      "name": "Кубок Эквестрии — 46,5 (асинхрон)",
-      "longName": "Кубок Эквестрии — 46,5 (асинхрон)",
-      "dateStart": "2026-07-04T09:00:00+00:00",
-      "dateEnd": "2026-08-16T21:00:00+00:00",
-      "difficultyForecast": 3,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 107043,
-          "name": "Григорий",
-          "patronymic": "Александрович",
-          "surname": "Зырянов",
-          "gotQuestionsTag": 651
-        },
-        {
-          "id": 131908,
-          "name": "Иван",
-          "patronymic": "Сергеевич",
-          "surname": "Киселёв",
-          "gotQuestionsTag": 348
-        },
-        {
-          "id": 137496,
-          "name": "Руслан",
-          "patronymic": "Рашидович",
-          "surname": "Алиев",
-          "gotQuestionsTag": 269
         }
       ]
     },
@@ -3962,49 +3824,6 @@
       ]
     },
     {
-      "id": 13442,
-      "name": "Крафт №11 (синхрон)",
-      "longName": "Крафт №11 (синхрон)",
-      "dateStart": "2026-08-08T09:00:00+00:00",
-      "dateEnd": "2026-08-15T09:00:00+00:00",
-      "difficultyForecast": 5,
-      "type": {
-        "id": 3,
-        "name": "Синхрон",
-        "shortName": "С"
-      },
-      "editors": [
-        {
-          "id": 27009,
-          "name": "Александр",
-          "patronymic": "Олегович",
-          "surname": "Рождествин",
-          "gotQuestionsTag": 97
-        },
-        {
-          "id": 69678,
-          "name": "Сергей",
-          "patronymic": "Георгиевич",
-          "surname": "Вознесенский",
-          "gotQuestionsTag": 2303
-        },
-        {
-          "id": 217110,
-          "name": "Андрей",
-          "patronymic": "Николаевич",
-          "surname": "Шинкаренко",
-          "gotQuestionsTag": 12354
-        },
-        {
-          "id": 228291,
-          "name": "Тимофей",
-          "patronymic": "Валентинович",
-          "surname": "Бобыльков",
-          "gotQuestionsTag": 13242
-        }
-      ]
-    },
-    {
       "id": 13443,
       "name": "Крафт №11 (асинхрон)",
       "longName": "Крафт №11 (асинхрон)",
@@ -4973,28 +4792,6 @@
       ]
     },
     {
-      "id": 13537,
-      "name": "Смоленск - Гурман (асинхрон-онлайн)",
-      "longName": "Международный асинхронный турнир \"Смоленск - Гурман\"",
-      "dateStart": "2026-06-07T09:00:00+00:00",
-      "dateEnd": "2026-08-18T20:55:00+00:00",
-      "difficultyForecast": 3.5,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 29010,
-          "name": "Александр",
-          "patronymic": "Михайлович",
-          "surname": "Сидоренков",
-          "gotQuestionsTag": 120
-        }
-      ]
-    },
-    {
       "id": 13539,
       "name": "Смоленская крепость (асинхрон/онлайн)",
       "longName": "Международный асинхронный турнир \"Смоленская крепость\"",
@@ -5021,7 +4818,7 @@
       "name": "Филадельфийское зеркало (асинхрон)",
       "longName": "Международный асинхронный турнир \"Филадельфийское зеркало 2026\"",
       "dateStart": "2026-05-16T09:00:00+00:00",
-      "dateEnd": "2026-08-16T18:00:00+00:00",
+      "dateEnd": "2026-09-16T18:00:00+00:00",
       "difficultyForecast": 4.5,
       "type": {
         "id": 8,
@@ -5127,84 +4924,6 @@
           "patronymic": "Борисович",
           "surname": "Файнбурд",
           "gotQuestionsTag": 201
-        }
-      ]
-    },
-    {
-      "id": 13574,
-      "name": "Весенний асинхронный Умлаут - 1",
-      "longName": "Международный турнир \"Весенний асинхронный Умлаут 2026 - 1\"",
-      "dateStart": "2026-04-25T10:00:00+00:00",
-      "dateEnd": "2026-08-20T10:00:00+00:00",
-      "difficultyForecast": 5,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 20700,
-          "name": "Максим",
-          "patronymic": "Петрович",
-          "surname": "Мерзляков",
-          "gotQuestionsTag": 267
-        },
-        {
-          "id": 31493,
-          "name": "Сергей",
-          "patronymic": "Александрович",
-          "surname": "Терентьев",
-          "gotQuestionsTag": 6
-        },
-        {
-          "id": 90455,
-          "name": "Сергей",
-          "patronymic": "Сергеевич",
-          "surname": "Никольский",
-          "gotQuestionsTag": 12163
-        }
-      ]
-    },
-    {
-      "id": 13575,
-      "name": "Весенний асинхронный Умлаут - 2",
-      "longName": "Международный турнир \"Весенний асинхронный Умлаут 2026 - 2\"",
-      "dateStart": "2026-05-02T09:00:00+00:00",
-      "dateEnd": "2026-08-16T09:00:00+00:00",
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 3671,
-          "name": "Алексей",
-          "patronymic": "Алексеевич",
-          "surname": "Богословский",
-          "gotQuestionsTag": 68
-        },
-        {
-          "id": 72211,
-          "name": "Мария",
-          "patronymic": "Владимировна",
-          "surname": "Подрядчикова",
-          "gotQuestionsTag": 5
-        },
-        {
-          "id": 80561,
-          "name": "Александр",
-          "patronymic": "Юрьевич",
-          "surname": "Губин",
-          "gotQuestionsTag": 323
-        },
-        {
-          "id": 170136,
-          "name": "Фёдор",
-          "patronymic": "Борисович",
-          "surname": "Журавлёв",
-          "gotQuestionsTag": 13403
         }
       ]
     },
@@ -5691,49 +5410,6 @@
       ]
     },
     {
-      "id": 13624,
-      "name": "B-52: S03E01 (асинхрон)",
-      "longName": "Серия B-52: сезон 03, эпизод 01 (асинхрон)",
-      "dateStart": "2026-07-22T07:00:00+00:00",
-      "dateEnd": "2026-08-19T07:00:00+00:00",
-      "difficultyForecast": 2,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 23487,
-          "name": "Илья",
-          "patronymic": "Владимирович",
-          "surname": "Онскуль",
-          "gotQuestionsTag": 388
-        },
-        {
-          "id": 25589,
-          "name": "Алексей",
-          "patronymic": "Иванович",
-          "surname": "Пономарёв",
-          "gotQuestionsTag": 571
-        },
-        {
-          "id": 30597,
-          "name": "Павел",
-          "patronymic": "Николаевич",
-          "surname": "Столяров",
-          "gotQuestionsTag": 449
-        },
-        {
-          "id": 70750,
-          "name": "Денис",
-          "patronymic": "Андреевич",
-          "surname": "Галиакберов",
-          "gotQuestionsTag": 945
-        }
-      ]
-    },
-    {
       "id": 13626,
       "name": "B-52: S03E02 (асинхрон)",
       "longName": "Серия B-52: сезон 03, эпизод 02 (асинхрон)",
@@ -5774,7 +5450,7 @@
       "name": "B-52: S03E03 (асинхрон)",
       "longName": "Серия B-52: сезон 03, эпизод 03 (асинхрон)",
       "dateStart": "2026-08-05T07:00:00+00:00",
-      "dateEnd": "2026-09-02T07:00:00+00:00",
+      "dateEnd": "2026-09-09T07:00:00+00:00",
       "difficultyForecast": 2,
       "type": {
         "id": 8,
@@ -5880,42 +5556,6 @@
           "patronymic": "Александрович",
           "surname": "Шибанов",
           "gotQuestionsTag": 336
-        }
-      ]
-    },
-    {
-      "id": 13633,
-      "name": "B-52: S03E06 (синхрон)",
-      "longName": "Серия B-52: сезон 03, эпизод 06 (синхрон)",
-      "dateStart": "2026-08-11T07:00:00+00:00",
-      "dateEnd": "2026-08-18T07:00:00+00:00",
-      "difficultyForecast": 2,
-      "type": {
-        "id": 3,
-        "name": "Синхрон",
-        "shortName": "С"
-      },
-      "editors": [
-        {
-          "id": 101861,
-          "name": "Дмитрий",
-          "patronymic": "Михайлович",
-          "surname": "Стальнухин",
-          "gotQuestionsTag": 12102
-        },
-        {
-          "id": 134506,
-          "name": "Игорь",
-          "patronymic": "Вячеславович",
-          "surname": "Кулешов",
-          "gotQuestionsTag": 1095
-        },
-        {
-          "id": 191086,
-          "name": "Максим",
-          "patronymic": "Алексеевич",
-          "surname": "Еремеев",
-          "gotQuestionsTag": 1919
         }
       ]
     },
@@ -6580,28 +6220,6 @@
       ]
     },
     {
-      "id": 13665,
-      "name": "Кадры, ноты и слова (асинхрон)",
-      "longName": "Кадры, ноты и слова (асинхрон)",
-      "dateStart": "2026-05-30T06:00:00+00:00",
-      "dateEnd": "2026-08-18T06:00:00+00:00",
-      "difficultyForecast": 4,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 192950,
-          "name": "Михаил",
-          "patronymic": "Геннадьевич",
-          "surname": "Богданов",
-          "gotQuestionsTag": 548
-        }
-      ]
-    },
-    {
       "id": 13668,
       "name": "Белградский асинхрон",
       "longName": "Международный турнир \"Белградский асинхрон\"",
@@ -6766,56 +6384,6 @@
       ]
     },
     {
-      "id": 13681,
-      "name": "5 башен 9 (асинхрон/онлайн)",
-      "longName": "Международный асинхронный турнир \"5 башен 9\"",
-      "dateStart": "2026-07-26T09:00:00+00:00",
-      "dateEnd": "2026-08-18T20:55:00+00:00",
-      "difficultyForecast": 3.7,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 9101,
-          "name": "Игорь",
-          "patronymic": "Николаевич",
-          "surname": "Демьянцев",
-          "gotQuestionsTag": 367
-        },
-        {
-          "id": 13552,
-          "name": "Игаль",
-          "patronymic": "Маркович",
-          "surname": "Карлинский",
-          "gotQuestionsTag": 6018
-        },
-        {
-          "id": 29010,
-          "name": "Александр",
-          "patronymic": "Михайлович",
-          "surname": "Сидоренков",
-          "gotQuestionsTag": 120
-        },
-        {
-          "id": 51751,
-          "name": "Дария",
-          "patronymic": "Сагындыковна",
-          "surname": "Жылкыбаева",
-          "gotQuestionsTag": 2648
-        },
-        {
-          "id": 118142,
-          "name": "Сергей",
-          "patronymic": "Юрьевич",
-          "surname": "Донецков",
-          "gotQuestionsTag": 324
-        }
-      ]
-    },
-    {
       "id": 13693,
       "name": "Кубок кабачков",
       "longName": "IX международный синхронный турнир \"Кубок кабачков\"",
@@ -6834,70 +6402,6 @@
           "patronymic": "Александрович",
           "surname": "Мищенко",
           "gotQuestionsTag": 676
-        }
-      ]
-    },
-    {
-      "id": 13698,
-      "name": "Каспийский осетр",
-      "longName": "Международный фестиваль интеллектуальных игр \"Каспийский осетр\"",
-      "dateStart": "2026-08-15T07:00:00+00:00",
-      "dateEnd": "2026-08-16T11:00:00+00:00",
-      "difficultyForecast": 5.5,
-      "type": {
-        "id": 2,
-        "name": "Обычный",
-        "shortName": "Т"
-      },
-      "editors": [
-        {
-          "id": 9342,
-          "name": "Юлия",
-          "patronymic": "Амираниевна",
-          "surname": "Дидбаридзе",
-          "gotQuestionsTag": 445
-        },
-        {
-          "id": 12160,
-          "name": "Михаил",
-          "patronymic": "Андреевич",
-          "surname": "Иванов",
-          "gotQuestionsTag": 40
-        },
-        {
-          "id": 20700,
-          "name": "Максим",
-          "patronymic": "Петрович",
-          "surname": "Мерзляков",
-          "gotQuestionsTag": 267
-        },
-        {
-          "id": 21026,
-          "name": "Евгений",
-          "patronymic": "Адольфович",
-          "surname": "Миротин",
-          "gotQuestionsTag": 113
-        },
-        {
-          "id": 21487,
-          "name": "Борис",
-          "patronymic": "Яковлевич",
-          "surname": "Моносов",
-          "gotQuestionsTag": 71
-        },
-        {
-          "id": 25373,
-          "name": "Алексей",
-          "patronymic": "Николаевич",
-          "surname": "Полевой",
-          "gotQuestionsTag": 66
-        },
-        {
-          "id": 27469,
-          "name": "Денис",
-          "patronymic": "Николаевич",
-          "surname": "Рыбачук",
-          "gotQuestionsTag": 67
         }
       ]
     },
@@ -7234,42 +6738,6 @@
       ]
     },
     {
-      "id": 13726,
-      "name": "Асинхрон простых вопросов. Июль",
-      "longName": "Асинхрон простых вопросов. Июль",
-      "dateStart": "2026-07-17T16:00:00+00:00",
-      "dateEnd": "2026-08-17T20:55:00+00:00",
-      "difficultyForecast": 3,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 9101,
-          "name": "Игорь",
-          "patronymic": "Николаевич",
-          "surname": "Демьянцев",
-          "gotQuestionsTag": 367
-        },
-        {
-          "id": 20700,
-          "name": "Максим",
-          "patronymic": "Петрович",
-          "surname": "Мерзляков",
-          "gotQuestionsTag": 267
-        },
-        {
-          "id": 36502,
-          "name": "Сергей",
-          "patronymic": "Александрович",
-          "surname": "Шорин",
-          "gotQuestionsTag": 435
-        }
-      ]
-    },
-    {
       "id": 13728,
       "name": "Серия Premier. Кубок огня (асинхрон)",
       "longName": "Серия Premier. Кубок огня (асинхрон)",
@@ -7523,35 +6991,6 @@
       ]
     },
     {
-      "id": 13741,
-      "name": "Плюс 2",
-      "longName": "Синхронный турнир \"Архвипелаг: Плюс 2\"",
-      "dateStart": "2026-08-09T09:00:00+00:00",
-      "dateEnd": "2026-08-16T09:00:00+00:00",
-      "difficultyForecast": 3,
-      "type": {
-        "id": 3,
-        "name": "Синхрон",
-        "shortName": "С"
-      },
-      "editors": [
-        {
-          "id": 16799,
-          "name": "Александр",
-          "patronymic": "Александрович",
-          "surname": "Кудрявцев",
-          "gotQuestionsTag": 47
-        },
-        {
-          "id": 66309,
-          "name": "Александр",
-          "patronymic": "Васильевич",
-          "surname": "Мудрый",
-          "gotQuestionsTag": 326
-        }
-      ]
-    },
-    {
       "id": 13746,
       "name": "17 друзей Оуэна",
       "longName": "Асинхронный турнир на футбольную тематику \"17 друзей Оуэна\"",
@@ -7698,28 +7137,6 @@
       ]
     },
     {
-      "id": 13760,
-      "name": "Х Кубок Лося",
-      "longName": "Х Кубок Лося (асинхрон)",
-      "dateStart": "2026-05-23T09:00:00+00:00",
-      "dateEnd": "2026-08-16T09:00:00+00:00",
-      "difficultyForecast": 4,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 65824,
-          "name": "Вячеслав",
-          "patronymic": "Викторович",
-          "surname": "Шерстюк",
-          "gotQuestionsTag": 10697
-        }
-      ]
-    },
-    {
       "id": 13763,
       "name": "Синхрон северных стран",
       "longName": "14-й синхронный турнир «Синхрон северных стран»",
@@ -7847,7 +7264,7 @@
       "name": "Асинхрон Нехрустальной совы. Кубок дружбы",
       "longName": "Асинхронный турнир на основе вопросов кубка дружбы XV фестиваля «Нехрустальная сова»",
       "dateStart": "2026-06-05T14:00:00+00:00",
-      "dateEnd": "2026-08-24T14:00:00+00:00",
+      "dateEnd": "2026-08-31T14:00:00+00:00",
       "difficultyForecast": 4,
       "type": {
         "id": 8,
@@ -7995,6 +7412,13 @@
           "patronymic": "",
           "surname": "Чепой",
           "gotQuestionsTag": 377
+        },
+        {
+          "id": 173459,
+          "name": "Артур",
+          "patronymic": "Витальевич",
+          "surname": "Матевосян",
+          "gotQuestionsTag": 13490
         }
       ]
     },
@@ -8080,8 +7504,8 @@
       "id": 13788,
       "name": "Мурманский Ёрш",
       "longName": "Мурманский Ёрш",
-      "dateStart": "2026-08-29T11:00:00+00:00",
-      "dateEnd": "2026-09-05T11:00:00+00:00",
+      "dateStart": "2026-10-10T11:00:00+00:00",
+      "dateEnd": "2026-10-17T11:00:00+00:00",
       "difficultyForecast": 3,
       "type": {
         "id": 3,
@@ -8474,56 +7898,6 @@
           "patronymic": "Александрович",
           "surname": "Павлов",
           "gotQuestionsTag": 204
-        }
-      ]
-    },
-    {
-      "id": 13820,
-      "name": "ОЧВ: East End (асинхрон / онлайн)",
-      "longName": "Асинхрон/Онлайн Открытого Чемпионата Великобритании: East End",
-      "dateStart": "2026-06-13T15:00:00+00:00",
-      "dateEnd": "2026-08-15T11:00:00+00:00",
-      "difficultyForecast": 6,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 4270,
-          "name": "Александра",
-          "patronymic": "Владимировна",
-          "surname": "Брутер",
-          "gotQuestionsTag": 769
-        },
-        {
-          "id": 12160,
-          "name": "Михаил",
-          "patronymic": "Андреевич",
-          "surname": "Иванов",
-          "gotQuestionsTag": 40
-        },
-        {
-          "id": 16799,
-          "name": "Александр",
-          "patronymic": "Александрович",
-          "surname": "Кудрявцев",
-          "gotQuestionsTag": 47
-        },
-        {
-          "id": 27403,
-          "name": "Максим",
-          "patronymic": "Михайлович",
-          "surname": "Руссо",
-          "gotQuestionsTag": 295
-        },
-        {
-          "id": 28751,
-          "name": "Иван",
-          "patronymic": "Николаевич",
-          "surname": "Семушин",
-          "gotQuestionsTag": 474
         }
       ]
     },
@@ -8935,6 +8309,13 @@
           "gotQuestionsTag": 14556
         },
         {
+          "id": 135968,
+          "name": "Денис",
+          "patronymic": "Александрович",
+          "surname": "Потехин",
+          "gotQuestionsTag": 73
+        },
+        {
           "id": 136190,
           "name": "Николай",
           "patronymic": "Романович",
@@ -8969,6 +8350,13 @@
           "patronymic": "Павловна",
           "surname": "Ширяева",
           "gotQuestionsTag": 14556
+        },
+        {
+          "id": 135968,
+          "name": "Денис",
+          "patronymic": "Александрович",
+          "surname": "Потехин",
+          "gotQuestionsTag": 73
         },
         {
           "id": 136190,
@@ -9077,7 +8465,7 @@
       "name": "(а) Плюс 1",
       "longName": "Асинхронный турнир \"Архвипелаг: Плюс 1\"",
       "dateStart": "2026-07-04T19:00:00+00:00",
-      "dateEnd": "2026-08-22T20:55:00+00:00",
+      "dateEnd": "2026-08-23T20:55:00+00:00",
       "difficultyForecast": 3,
       "type": {
         "id": 8,
@@ -9363,7 +8751,7 @@
       "name": "Українська ліга. Етап 5",
       "longName": "Українська ліга. Сезон 2025-2026. Етап 5",
       "dateStart": "2026-06-28T15:00:00+00:00",
-      "dateEnd": "2026-08-23T20:00:00+00:00",
+      "dateEnd": "2026-09-05T20:00:00+00:00",
       "type": {
         "id": 8,
         "name": "Асинхрон",
@@ -9383,56 +8771,6 @@
           "patronymic": "Михайловна",
           "surname": "Маландина",
           "gotQuestionsTag": 196
-        }
-      ]
-    },
-    {
-      "id": 13859,
-      "name": "(а) Дискета",
-      "longName": "Асинхрон Дискета, МЧР-26",
-      "dateStart": "2026-07-01T07:00:00+00:00",
-      "dateEnd": "2026-08-16T07:00:00+00:00",
-      "difficultyForecast": 4.7,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 10509,
-          "name": "Александр",
-          "patronymic": "Константинович",
-          "surname": "Ермишкин",
-          "gotQuestionsTag": 1358
-        },
-        {
-          "id": 26988,
-          "name": "Дмитрий",
-          "patronymic": "Александрович",
-          "surname": "Родионов",
-          "gotQuestionsTag": 308
-        },
-        {
-          "id": 30597,
-          "name": "Павел",
-          "patronymic": "Николаевич",
-          "surname": "Столяров",
-          "gotQuestionsTag": 449
-        },
-        {
-          "id": 36035,
-          "name": "Алексей",
-          "patronymic": "Владимирович",
-          "surname": "Шередега",
-          "gotQuestionsTag": 106
-        },
-        {
-          "id": 90996,
-          "name": "Владимир",
-          "patronymic": "Вячеславович",
-          "surname": "Осипчук",
-          "gotQuestionsTag": 213
         }
       ]
     },
@@ -9528,35 +8866,6 @@
           "patronymic": "Алексеевич",
           "surname": "Еремеев",
           "gotQuestionsTag": 1919
-        }
-      ]
-    },
-    {
-      "id": 13863,
-      "name": "Полесские хроники 2026. Голубика",
-      "longName": "Cинхронный турнир \"Полесские хроники 2026. Голубика\"",
-      "dateStart": "2026-08-08T11:00:00+00:00",
-      "dateEnd": "2026-08-15T11:00:00+00:00",
-      "difficultyForecast": 4.5,
-      "type": {
-        "id": 3,
-        "name": "Синхрон",
-        "shortName": "С"
-      },
-      "editors": [
-        {
-          "id": 9101,
-          "name": "Игорь",
-          "patronymic": "Николаевич",
-          "surname": "Демьянцев",
-          "gotQuestionsTag": 367
-        },
-        {
-          "id": 12890,
-          "name": "Павел",
-          "patronymic": "Валерьевич",
-          "surname": "Кадол",
-          "gotQuestionsTag": 419
         }
       ]
     },
@@ -11141,7 +10450,7 @@
     {
       "id": 13914,
       "name": "5 башен 10 (асинхрон/онлайн)",
-      "longName": "Международный асинхронный турнир \"5 башен 9\"",
+      "longName": "Международный асинхронный турнир \"5 башен 10\"",
       "dateStart": "2026-08-30T09:00:00+00:00",
       "dateEnd": "2026-09-22T20:55:00+00:00",
       "difficultyForecast": 3.7,
@@ -12297,47 +11606,6 @@
       ]
     },
     {
-      "id": 13956,
-      "name": "Асинхрон финала чемпионата Республики Коми",
-      "longName": "Асинхрон финала чемпионата Республики Коми",
-      "dateStart": "2026-07-12T09:00:00+00:00",
-      "dateEnd": "2026-08-16T09:00:00+00:00",
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 66075,
-          "name": "Алексей",
-          "patronymic": "Михайлович",
-          "surname": "Рогачёв",
-          "gotQuestionsTag": 652
-        },
-        {
-          "id": 79150,
-          "name": "Павел",
-          "patronymic": "Николаевич",
-          "surname": "Тарасов",
-          "gotQuestionsTag": 6842
-        },
-        {
-          "id": 81085,
-          "name": "Василий",
-          "patronymic": "Александрович",
-          "surname": "Смирнов",
-          "gotQuestionsTag": 2654
-        },
-        {
-          "id": 174012,
-          "name": "Павел",
-          "patronymic": "Владимирович",
-          "surname": "Корнилов"
-        }
-      ]
-    },
-    {
       "id": 13957,
       "name": "Кубок 69",
       "longName": "Первый турнир на тематику 18+ \"Кубок 69\"",
@@ -12364,7 +11632,7 @@
       "name": "Кубок 69 (а)",
       "longName": "Первый асинхронный турнир на тематику 18+ \"Кубок 69\"",
       "dateStart": "2026-09-04T08:00:00+00:00",
-      "dateEnd": "2026-10-11T08:00:00+00:00",
+      "dateEnd": "2026-11-01T08:00:00+00:00",
       "difficultyForecast": 2.5,
       "type": {
         "id": 8,
@@ -12378,28 +11646,6 @@
           "patronymic": "Викторович",
           "surname": "Томилов",
           "gotQuestionsTag": 13340
-        }
-      ]
-    },
-    {
-      "id": 13959,
-      "name": "Кинотриптих",
-      "longName": "Кинотриптих. Эпизод 1",
-      "dateStart": "2026-07-13T09:00:00+00:00",
-      "dateEnd": "2026-08-16T09:00:00+00:00",
-      "difficultyForecast": 4,
-      "type": {
-        "id": 8,
-        "name": "Асинхрон",
-        "shortName": "А"
-      },
-      "editors": [
-        {
-          "id": 32788,
-          "name": "Владислав",
-          "patronymic": "Борисович",
-          "surname": "Уцеховский",
-          "gotQuestionsTag": 7182
         }
       ]
     },
@@ -12724,7 +11970,7 @@
       "name": "Мультифора. Первая пачка (а)",
       "longName": "Мультифора. Первая пачка. Асинхрон",
       "dateStart": "2026-07-25T01:00:00+00:00",
-      "dateEnd": "2026-08-24T05:00:00+00:00",
+      "dateEnd": "2026-08-30T21:00:00+00:00",
       "difficultyForecast": 5.1,
       "type": {
         "id": 8,
@@ -12760,7 +12006,7 @@
       "name": "Мультифора. Вторая пачка (а)",
       "longName": "Мультифора. Вторая пачка. Асинхрон",
       "dateStart": "2026-07-25T01:00:00+00:00",
-      "dateEnd": "2026-08-24T05:00:00+00:00",
+      "dateEnd": "2026-08-30T05:00:00+00:00",
       "difficultyForecast": 5.1,
       "type": {
         "id": 8,
@@ -15195,7 +14441,7 @@
       "name": "Балканский самовар (асинхрон и онлайн)",
       "longName": "Балканский самовар. Зеркало VI Открытого кубка Адриатики и XII фестиваля Ultima Tule №1 (асинхрон и онлайн)",
       "dateStart": "2026-07-25T09:00:00+00:00",
-      "dateEnd": "2026-08-25T09:00:00+00:00",
+      "dateEnd": "2026-09-01T09:00:00+00:00",
       "difficultyForecast": 5.8,
       "type": {
         "id": 8,
@@ -15231,7 +14477,7 @@
       "name": "Черногорский пряник (асинхрон и онлайн)",
       "longName": "Черногорский пряник. Зеркало VI Открытого кубка Адриатики и XII фестиваля Ultima Tule №2 (асинхрон и онлайн)",
       "dateStart": "2026-07-25T09:00:00+00:00",
-      "dateEnd": "2026-08-25T09:00:00+00:00",
+      "dateEnd": "2026-09-01T09:00:00+00:00",
       "difficultyForecast": 5.8,
       "type": {
         "id": 8,
@@ -15670,63 +14916,6 @@
           "patronymic": "Владимирович",
           "surname": "Сахаров",
           "gotQuestionsTag": 119
-        }
-      ]
-    },
-    {
-      "id": 14043,
-      "name": "Пущинские Дали-2026",
-      "longName": "Синхронный турнир «Пущинские Дали-2026»",
-      "dateStart": "2026-08-08T09:00:00+00:00",
-      "dateEnd": "2026-08-15T09:00:00+00:00",
-      "difficultyForecast": 5,
-      "type": {
-        "id": 3,
-        "name": "Синхрон",
-        "shortName": "С"
-      },
-      "editors": [
-        {
-          "id": 36120,
-          "name": "Серафим",
-          "patronymic": "Александрович",
-          "surname": "Шибанов",
-          "gotQuestionsTag": 336
-        },
-        {
-          "id": 38047,
-          "name": "Олег",
-          "patronymic": "Сергеевич",
-          "surname": "Михеев",
-          "gotQuestionsTag": 172
-        },
-        {
-          "id": 51751,
-          "name": "Дария",
-          "patronymic": "Сагындыковна",
-          "surname": "Жылкыбаева",
-          "gotQuestionsTag": 2648
-        },
-        {
-          "id": 69107,
-          "name": "Андрей",
-          "patronymic": "Владимирович",
-          "surname": "Волков",
-          "gotQuestionsTag": 27
-        },
-        {
-          "id": 69678,
-          "name": "Сергей",
-          "patronymic": "Георгиевич",
-          "surname": "Вознесенский",
-          "gotQuestionsTag": 2303
-        },
-        {
-          "id": 72211,
-          "name": "Мария",
-          "patronymic": "Владимировна",
-          "surname": "Подрядчикова",
-          "gotQuestionsTag": 5
         }
       ]
     },
@@ -16775,6 +15964,13 @@
       },
       "editors": [
         {
+          "id": 486,
+          "name": "Яна",
+          "patronymic": "Исаевна",
+          "surname": "Азриэль",
+          "gotQuestionsTag": 156
+        },
+        {
           "id": 25589,
           "name": "Алексей",
           "patronymic": "Иванович",
@@ -16853,7 +16049,7 @@
       "name": "ППП XXIII (асинхрон)",
       "longName": "Первенство Правого Полушария, часть XXIII. Асинхрон",
       "dateStart": "2026-08-15T12:00:00+00:00",
-      "dateEnd": "2026-08-31T20:55:00+00:00",
+      "dateEnd": "2026-09-07T20:55:00+00:00",
       "difficultyForecast": 7,
       "type": {
         "id": 8,
@@ -18568,7 +17764,7 @@
     },
     {
       "id": 14134,
-      "name": "Блаженный Августинер (астнхрон)",
+      "name": "Блаженный Августинер (асинхрон)",
       "longName": "Международный асинхронный турнир \"Блаженный Августинер 2026\"",
       "dateStart": "2026-08-28T16:00:00+00:00",
       "dateEnd": "2026-10-28T17:00:00+00:00",
@@ -18950,8 +18146,8 @@
       "id": 14143,
       "name": "НижВышФест-2026",
       "longName": "III межрегиональный студенческий фестиваль интеллектуальных игр \"НижВышФест\"",
-      "dateStart": "2026-10-31T09:00:00+00:00",
-      "dateEnd": "2026-11-01T09:00:00+00:00",
+      "dateStart": "2026-10-17T09:00:00+00:00",
+      "dateEnd": "2026-10-18T15:00:00+00:00",
       "difficultyForecast": 4.5,
       "type": {
         "id": 2,
@@ -18984,13 +18180,6 @@
           "name": "Анна",
           "patronymic": "Владимировна",
           "surname": "Собакина"
-        },
-        {
-          "id": 191822,
-          "name": "Станислав",
-          "patronymic": "Юрьевич",
-          "surname": "Хамидулин",
-          "gotQuestionsTag": 15128
         },
         {
           "id": 206243,
@@ -19447,8 +18636,8 @@
       "id": 14155,
       "name": "Paint",
       "longName": "Paint",
-      "dateStart": "2026-08-29T11:00:00+00:00",
-      "dateEnd": "2026-09-05T11:00:00+00:00",
+      "dateStart": "2026-08-31T12:00:00+00:00",
+      "dateEnd": "2026-09-07T12:00:00+00:00",
       "difficultyForecast": 5,
       "type": {
         "id": 3,
@@ -19484,6 +18673,926 @@
           "patronymic": "Олегович",
           "surname": "Косарев",
           "gotQuestionsTag": 627
+        }
+      ]
+    },
+    {
+      "id": 14157,
+      "name": "Sims To Be: Vol. 23 (а/о)",
+      "longName": "Sims To Be: Vol. 23 (а/о)",
+      "dateStart": "2026-08-22T16:30:00+00:00",
+      "dateEnd": "2026-09-26T19:30:00+00:00",
+      "difficultyForecast": 4,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 16581,
+          "name": "Андрей",
+          "patronymic": "Викторович",
+          "surname": "Кругов",
+          "gotQuestionsTag": 6800
+        },
+        {
+          "id": 20700,
+          "name": "Максим",
+          "patronymic": "Петрович",
+          "surname": "Мерзляков",
+          "gotQuestionsTag": 267
+        },
+        {
+          "id": 36120,
+          "name": "Серафим",
+          "patronymic": "Александрович",
+          "surname": "Шибанов",
+          "gotQuestionsTag": 336
+        }
+      ]
+    },
+    {
+      "id": 14158,
+      "name": "Любительская лига Армении Игра 5.",
+      "longName": "Любительская лига Армении Игра 5.",
+      "dateStart": "2026-08-22T10:00:00+00:00",
+      "dateEnd": "2026-08-22T12:00:00+00:00",
+      "type": {
+        "id": 2,
+        "name": "Обычный",
+        "shortName": "Т"
+      },
+      "editors": [
+        {
+          "id": 16154,
+          "name": "Тигран",
+          "patronymic": "Робертович",
+          "surname": "Кочарян"
+        },
+        {
+          "id": 61094,
+          "name": "Арутюн",
+          "patronymic": "Аликович",
+          "surname": "Арзуманян",
+          "gotQuestionsTag": 2871
+        }
+      ]
+    },
+    {
+      "id": 14159,
+      "name": "Куб-0 (асинхрон/онлайн)",
+      "longName": "6-й сезон синхронного турнира «Куб». Этап 0 (дополнительный) (асинхрон/онлайн)",
+      "dateStart": "2026-09-05T15:00:00+00:00",
+      "dateEnd": "2026-10-05T19:55:00+00:00",
+      "difficultyForecast": 4.5,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 10177,
+          "name": "Александр",
+          "patronymic": "Сергеевич",
+          "surname": "Евтушков",
+          "gotQuestionsTag": 438
+        },
+        {
+          "id": 36120,
+          "name": "Серафим",
+          "patronymic": "Александрович",
+          "surname": "Шибанов",
+          "gotQuestionsTag": 336
+        },
+        {
+          "id": 61905,
+          "name": "Тимур",
+          "patronymic": "Дамирович",
+          "surname": "Шайткалиев",
+          "gotQuestionsTag": 338
+        },
+        {
+          "id": 69107,
+          "name": "Андрей",
+          "patronymic": "Владимирович",
+          "surname": "Волков",
+          "gotQuestionsTag": 27
+        },
+        {
+          "id": 127187,
+          "name": "Виктор",
+          "patronymic": "",
+          "surname": "Чепой",
+          "gotQuestionsTag": 377
+        },
+        {
+          "id": 173459,
+          "name": "Артур",
+          "patronymic": "Витальевич",
+          "surname": "Матевосян",
+          "gotQuestionsTag": 13490
+        }
+      ]
+    },
+    {
+      "id": 14160,
+      "name": "Чемпионат России 2026",
+      "longName": "XXII Чемпионат России по «Что? Где? Когда?»",
+      "dateStart": "2026-09-12T13:00:00+00:00",
+      "dateEnd": "2026-09-13T14:30:00+00:00",
+      "difficultyForecast": 5.5,
+      "type": {
+        "id": 2,
+        "name": "Обычный",
+        "shortName": "Т"
+      },
+      "editors": [
+        {
+          "id": 2077,
+          "name": "Алексей",
+          "patronymic": "Игоревич",
+          "surname": "Баев"
+        },
+        {
+          "id": 6651,
+          "name": "Вячеслав",
+          "patronymic": "Игоревич",
+          "surname": "Гаранович",
+          "gotQuestionsTag": 4321
+        },
+        {
+          "id": 7529,
+          "name": "Павел",
+          "patronymic": "Борисович",
+          "surname": "Гонтарь",
+          "gotQuestionsTag": 14554
+        },
+        {
+          "id": 59140,
+          "name": "Борис",
+          "patronymic": "Сергеевич",
+          "surname": "Белозёров",
+          "gotQuestionsTag": 394
+        },
+        {
+          "id": 141555,
+          "name": "Юлия",
+          "patronymic": "Николаевна",
+          "surname": "Воротникова",
+          "gotQuestionsTag": 86
+        }
+      ]
+    },
+    {
+      "id": 14161,
+      "name": "ВолКам: полнолуние близко!",
+      "longName": "Синхронный турнир \"ВолКам: полнолуние близко!",
+      "dateStart": "2026-09-05T08:00:00+00:00",
+      "dateEnd": "2026-09-12T08:00:00+00:00",
+      "difficultyForecast": 4,
+      "type": {
+        "id": 3,
+        "name": "Синхрон",
+        "shortName": "С"
+      },
+      "editors": [
+        {
+          "id": 70220,
+          "name": "Василий",
+          "patronymic": "Михайлович",
+          "surname": "Корягин",
+          "gotQuestionsTag": 654
+        },
+        {
+          "id": 142684,
+          "name": "Андрей",
+          "patronymic": "Анатольевич",
+          "surname": "Хромов",
+          "gotQuestionsTag": 11651
+        }
+      ]
+    },
+    {
+      "id": 14162,
+      "name": "ВолКам: полнолуние близко! (асинхрон/онлайн)",
+      "longName": "Асинхронный турнир \"ВолКам: полнолуние близко!",
+      "dateStart": "2026-09-12T11:00:00+00:00",
+      "dateEnd": "2026-10-12T11:00:00+00:00",
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 70220,
+          "name": "Василий",
+          "patronymic": "Михайлович",
+          "surname": "Корягин",
+          "gotQuestionsTag": 654
+        },
+        {
+          "id": 142684,
+          "name": "Андрей",
+          "patronymic": "Анатольевич",
+          "surname": "Хромов",
+          "gotQuestionsTag": 11651
+        }
+      ]
+    },
+    {
+      "id": 14163,
+      "name": "Совсем просто",
+      "longName": "I синхронный легкий турнир \"Совсем просто\"",
+      "dateStart": "2026-11-01T08:00:00+00:00",
+      "dateEnd": "2026-11-08T08:00:00+00:00",
+      "difficultyForecast": 1,
+      "type": {
+        "id": 3,
+        "name": "Синхрон",
+        "shortName": "С"
+      },
+      "editors": [
+        {
+          "id": 106850,
+          "name": "Александр",
+          "patronymic": "Анатольевич",
+          "surname": "Глинин",
+          "gotQuestionsTag": 13342
+        },
+        {
+          "id": 274410,
+          "name": "Александр",
+          "patronymic": "Викторович",
+          "surname": "Томилов",
+          "gotQuestionsTag": 13340
+        }
+      ]
+    },
+    {
+      "id": 14164,
+      "name": "Ну прям совсем просто",
+      "longName": "Зеркало I синхронного легкого турнира \"Совсем просто\"",
+      "dateStart": "2026-11-09T08:00:00+00:00",
+      "dateEnd": "2027-01-31T08:00:00+00:00",
+      "difficultyForecast": 1,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 106850,
+          "name": "Александр",
+          "patronymic": "Анатольевич",
+          "surname": "Глинин",
+          "gotQuestionsTag": 13342
+        },
+        {
+          "id": 274410,
+          "name": "Александр",
+          "patronymic": "Викторович",
+          "surname": "Томилов",
+          "gotQuestionsTag": 13340
+        }
+      ]
+    },
+    {
+      "id": 14165,
+      "name": "Каспийский осетр. Белуга",
+      "longName": "Синхронный турнир \"Каспийский осетр. Белуга\" - зеркало очного турнира \"Каспийский осетр\"",
+      "dateStart": "2026-09-05T07:00:00+00:00",
+      "dateEnd": "2026-09-12T07:00:00+00:00",
+      "difficultyForecast": 5.5,
+      "type": {
+        "id": 3,
+        "name": "Синхрон",
+        "shortName": "С"
+      },
+      "editors": [
+        {
+          "id": 20700,
+          "name": "Максим",
+          "patronymic": "Петрович",
+          "surname": "Мерзляков",
+          "gotQuestionsTag": 267
+        },
+        {
+          "id": 21026,
+          "name": "Евгений",
+          "patronymic": "Адольфович",
+          "surname": "Миротин",
+          "gotQuestionsTag": 113
+        },
+        {
+          "id": 25373,
+          "name": "Алексей",
+          "patronymic": "Николаевич",
+          "surname": "Полевой",
+          "gotQuestionsTag": 66
+        },
+        {
+          "id": 27469,
+          "name": "Денис",
+          "patronymic": "Николаевич",
+          "surname": "Рыбачук",
+          "gotQuestionsTag": 67
+        }
+      ]
+    },
+    {
+      "id": 14166,
+      "name": "Каспийский осетр. Севрюга",
+      "longName": "Синхронный турнир \"Каспийский осетр. Севрюга\" - зеркало очного турнира \"Каспийский осетр\"",
+      "dateStart": "2026-09-12T07:00:00+00:00",
+      "dateEnd": "2026-09-19T07:00:00+00:00",
+      "difficultyForecast": 5.5,
+      "type": {
+        "id": 3,
+        "name": "Синхрон",
+        "shortName": "С"
+      },
+      "editors": [
+        {
+          "id": 9342,
+          "name": "Юлия",
+          "patronymic": "Амираниевна",
+          "surname": "Дидбаридзе",
+          "gotQuestionsTag": 445
+        },
+        {
+          "id": 12160,
+          "name": "Михаил",
+          "patronymic": "Андреевич",
+          "surname": "Иванов",
+          "gotQuestionsTag": 40
+        },
+        {
+          "id": 21487,
+          "name": "Борис",
+          "patronymic": "Яковлевич",
+          "surname": "Моносов",
+          "gotQuestionsTag": 71
+        }
+      ]
+    },
+    {
+      "id": 14167,
+      "name": "Каспийский осетр. Асинхронная Белуга",
+      "longName": "Асинхронный турнир \"Каспийский осетр. Белуга\" - зеркало очного турнира \"Каспийский осетр\"",
+      "dateStart": "2026-09-13T07:00:00+00:00",
+      "dateEnd": "2026-10-11T07:00:00+00:00",
+      "difficultyForecast": 5.5,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 20700,
+          "name": "Максим",
+          "patronymic": "Петрович",
+          "surname": "Мерзляков",
+          "gotQuestionsTag": 267
+        },
+        {
+          "id": 21026,
+          "name": "Евгений",
+          "patronymic": "Адольфович",
+          "surname": "Миротин",
+          "gotQuestionsTag": 113
+        },
+        {
+          "id": 25373,
+          "name": "Алексей",
+          "patronymic": "Николаевич",
+          "surname": "Полевой",
+          "gotQuestionsTag": 66
+        },
+        {
+          "id": 27469,
+          "name": "Денис",
+          "patronymic": "Николаевич",
+          "surname": "Рыбачук",
+          "gotQuestionsTag": 67
+        }
+      ]
+    },
+    {
+      "id": 14168,
+      "name": "Каспийский осетр. Асинхронная Севрюга",
+      "longName": "Асинхронный турнир \"Каспийский осетр. Севрюга\" - зеркало очного турнира \"Каспийский осетр\"",
+      "dateStart": "2026-09-20T07:00:00+00:00",
+      "dateEnd": "2026-10-18T07:00:00+00:00",
+      "difficultyForecast": 5.5,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 9342,
+          "name": "Юлия",
+          "patronymic": "Амираниевна",
+          "surname": "Дидбаридзе",
+          "gotQuestionsTag": 445
+        },
+        {
+          "id": 12160,
+          "name": "Михаил",
+          "patronymic": "Андреевич",
+          "surname": "Иванов",
+          "gotQuestionsTag": 40
+        },
+        {
+          "id": 21487,
+          "name": "Борис",
+          "patronymic": "Яковлевич",
+          "surname": "Моносов",
+          "gotQuestionsTag": 71
+        }
+      ]
+    },
+    {
+      "id": 14170,
+      "name": "Лето в Тюмени 2026",
+      "longName": "Закрытие летнего сезона по интеллектуальным играм в г. Тюмени. Лето 2026",
+      "dateStart": "2026-08-30T06:00:00+00:00",
+      "dateEnd": "2026-08-30T10:30:00+00:00",
+      "difficultyForecast": 5.5,
+      "type": {
+        "id": 2,
+        "name": "Обычный",
+        "shortName": "Т"
+      },
+      "editors": [
+        {
+          "id": 4064,
+          "name": "Алексей",
+          "patronymic": "Владимирович",
+          "surname": "Бороненко",
+          "gotQuestionsTag": 101
+        },
+        {
+          "id": 10509,
+          "name": "Александр",
+          "patronymic": "Константинович",
+          "surname": "Ермишкин",
+          "gotQuestionsTag": 1358
+        },
+        {
+          "id": 35339,
+          "name": "Леван",
+          "patronymic": "Сергеевич",
+          "surname": "Чхеидзе",
+          "gotQuestionsTag": 485
+        },
+        {
+          "id": 36035,
+          "name": "Алексей",
+          "patronymic": "Владимирович",
+          "surname": "Шередега",
+          "gotQuestionsTag": 106
+        },
+        {
+          "id": 137496,
+          "name": "Руслан",
+          "patronymic": "Рашидович",
+          "surname": "Алиев",
+          "gotQuestionsTag": 269
+        }
+      ]
+    },
+    {
+      "id": 14171,
+      "name": "ШЧР: совместный пакет - 1",
+      "longName": "ШЧР: совместный пакет - 1",
+      "dateStart": "2026-10-16T13:00:00+00:00",
+      "dateEnd": "2026-10-23T13:00:00+00:00",
+      "difficultyForecast": 1.5,
+      "type": {
+        "id": 3,
+        "name": "Синхрон",
+        "shortName": "С"
+      },
+      "editors": [
+        {
+          "id": 15965,
+          "name": "Константин",
+          "patronymic": "Александрович",
+          "surname": "Костенко",
+          "gotQuestionsTag": 4
+        },
+        {
+          "id": 19541,
+          "name": "Михаил",
+          "patronymic": "Леонидович",
+          "surname": "Малкин",
+          "gotQuestionsTag": 83
+        },
+        {
+          "id": 25373,
+          "name": "Алексей",
+          "patronymic": "Николаевич",
+          "surname": "Полевой",
+          "gotQuestionsTag": 66
+        },
+        {
+          "id": 27469,
+          "name": "Денис",
+          "patronymic": "Николаевич",
+          "surname": "Рыбачук",
+          "gotQuestionsTag": 67
+        },
+        {
+          "id": 194823,
+          "name": "Илья",
+          "patronymic": "Андреевич",
+          "surname": "Орлов",
+          "gotQuestionsTag": 12288
+        },
+        {
+          "id": 229783,
+          "name": "Дмитрий",
+          "patronymic": "Андреевич",
+          "surname": "Макаров",
+          "gotQuestionsTag": 11662
+        }
+      ]
+    },
+    {
+      "id": 14172,
+      "name": "ШЧР: совместный пакет - 1 (асинхрон и онлайн)",
+      "longName": "ШЧР: совместный пакет - 1 (асинхрон и онлайн)",
+      "dateStart": "2026-10-23T16:00:00+00:00",
+      "dateEnd": "2026-11-15T21:00:00+00:00",
+      "difficultyForecast": 1.5,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 15965,
+          "name": "Константин",
+          "patronymic": "Александрович",
+          "surname": "Костенко",
+          "gotQuestionsTag": 4
+        },
+        {
+          "id": 19541,
+          "name": "Михаил",
+          "patronymic": "Леонидович",
+          "surname": "Малкин",
+          "gotQuestionsTag": 83
+        },
+        {
+          "id": 25373,
+          "name": "Алексей",
+          "patronymic": "Николаевич",
+          "surname": "Полевой",
+          "gotQuestionsTag": 66
+        },
+        {
+          "id": 27469,
+          "name": "Денис",
+          "patronymic": "Николаевич",
+          "surname": "Рыбачук",
+          "gotQuestionsTag": 67
+        },
+        {
+          "id": 194823,
+          "name": "Илья",
+          "patronymic": "Андреевич",
+          "surname": "Орлов",
+          "gotQuestionsTag": 12288
+        },
+        {
+          "id": 229783,
+          "name": "Дмитрий",
+          "patronymic": "Андреевич",
+          "surname": "Макаров",
+          "gotQuestionsTag": 11662
+        }
+      ]
+    },
+    {
+      "id": 14173,
+      "name": "ШЧР: совместный пакет - 2",
+      "longName": "ШЧР: совместный пакет - 2",
+      "dateStart": "2027-03-01T19:00:00+00:00",
+      "dateEnd": "2027-03-08T19:00:00+00:00",
+      "difficultyForecast": 1.5,
+      "type": {
+        "id": 3,
+        "name": "Синхрон",
+        "shortName": "С"
+      },
+      "editors": [
+        {
+          "id": 10509,
+          "name": "Александр",
+          "patronymic": "Константинович",
+          "surname": "Ермишкин",
+          "gotQuestionsTag": 1358
+        },
+        {
+          "id": 96330,
+          "name": "Наталья",
+          "patronymic": "Александровна",
+          "surname": "Комар",
+          "gotQuestionsTag": 354
+        },
+        {
+          "id": 107043,
+          "name": "Григорий",
+          "patronymic": "Александрович",
+          "surname": "Зырянов",
+          "gotQuestionsTag": 651
+        },
+        {
+          "id": 116713,
+          "name": "Ольга",
+          "patronymic": "Владимировна",
+          "surname": "Сарницкая",
+          "gotQuestionsTag": 355
+        },
+        {
+          "id": 217603,
+          "name": "Андрей",
+          "patronymic": "Игоревич",
+          "surname": "Ярусов",
+          "gotQuestionsTag": 13392
+        }
+      ]
+    },
+    {
+      "id": 14174,
+      "name": "ШЧР: совместный пакет - 2 (асинхрон и онлайн)",
+      "longName": "ШЧР: совместный пакет - 2 (асинхрон и онлайн)",
+      "dateStart": "2027-03-08T23:00:00+00:00",
+      "dateEnd": "2027-03-30T19:00:00+00:00",
+      "difficultyForecast": 1.5,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 10509,
+          "name": "Александр",
+          "patronymic": "Константинович",
+          "surname": "Ермишкин",
+          "gotQuestionsTag": 1358
+        },
+        {
+          "id": 96330,
+          "name": "Наталья",
+          "patronymic": "Александровна",
+          "surname": "Комар",
+          "gotQuestionsTag": 354
+        },
+        {
+          "id": 107043,
+          "name": "Григорий",
+          "patronymic": "Александрович",
+          "surname": "Зырянов",
+          "gotQuestionsTag": 651
+        },
+        {
+          "id": 116713,
+          "name": "Ольга",
+          "patronymic": "Владимировна",
+          "surname": "Сарницкая",
+          "gotQuestionsTag": 355
+        },
+        {
+          "id": 217603,
+          "name": "Андрей",
+          "patronymic": "Игоревич",
+          "surname": "Ярусов",
+          "gotQuestionsTag": 13392
+        }
+      ]
+    },
+    {
+      "id": 14175,
+      "name": "ШЧР: совместный пакет - 3",
+      "longName": "ШЧР: совместный пакет - 3",
+      "dateStart": "2027-03-12T14:00:00+00:00",
+      "dateEnd": "2027-03-19T14:00:00+00:00",
+      "difficultyForecast": 1.5,
+      "type": {
+        "id": 3,
+        "name": "Синхрон",
+        "shortName": "С"
+      },
+      "editors": [
+        {
+          "id": 3671,
+          "name": "Алексей",
+          "patronymic": "Алексеевич",
+          "surname": "Богословский",
+          "gotQuestionsTag": 68
+        },
+        {
+          "id": 31493,
+          "name": "Сергей",
+          "patronymic": "Александрович",
+          "surname": "Терентьев",
+          "gotQuestionsTag": 6
+        },
+        {
+          "id": 72211,
+          "name": "Мария",
+          "patronymic": "Владимировна",
+          "surname": "Подрядчикова",
+          "gotQuestionsTag": 5
+        },
+        {
+          "id": 119352,
+          "name": "Матвей",
+          "patronymic": "Александрович",
+          "surname": "Гомон",
+          "gotQuestionsTag": 61
+        },
+        {
+          "id": 135967,
+          "name": "Артём",
+          "patronymic": "Сергеевич",
+          "surname": "Савочкин",
+          "gotQuestionsTag": 11646
+        },
+        {
+          "id": 170136,
+          "name": "Фёдор",
+          "patronymic": "Борисович",
+          "surname": "Журавлёв",
+          "gotQuestionsTag": 13403
+        }
+      ]
+    },
+    {
+      "id": 14176,
+      "name": "ШЧР: совместный пакет - 3 (асинхрон и онлайн)",
+      "longName": "ШЧР: совместный пакет - 3 (асинхрон и онлайн)",
+      "dateStart": "2027-03-19T18:00:00+00:00",
+      "dateEnd": "2027-04-10T14:00:00+00:00",
+      "difficultyForecast": 1.5,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 3671,
+          "name": "Алексей",
+          "patronymic": "Алексеевич",
+          "surname": "Богословский",
+          "gotQuestionsTag": 68
+        },
+        {
+          "id": 31493,
+          "name": "Сергей",
+          "patronymic": "Александрович",
+          "surname": "Терентьев",
+          "gotQuestionsTag": 6
+        },
+        {
+          "id": 72211,
+          "name": "Мария",
+          "patronymic": "Владимировна",
+          "surname": "Подрядчикова",
+          "gotQuestionsTag": 5
+        },
+        {
+          "id": 119352,
+          "name": "Матвей",
+          "patronymic": "Александрович",
+          "surname": "Гомон",
+          "gotQuestionsTag": 61
+        },
+        {
+          "id": 135967,
+          "name": "Артём",
+          "patronymic": "Сергеевич",
+          "surname": "Савочкин",
+          "gotQuestionsTag": 11646
+        },
+        {
+          "id": 170136,
+          "name": "Фёдор",
+          "patronymic": "Борисович",
+          "surname": "Журавлёв",
+          "gotQuestionsTag": 13403
+        }
+      ]
+    },
+    {
+      "id": 14177,
+      "name": "ШЧР: совместный пакет - 4",
+      "longName": "ШЧР: совместный пакет - 4",
+      "dateStart": "2027-04-02T13:00:00+00:00",
+      "dateEnd": "2027-04-09T13:00:00+00:00",
+      "difficultyForecast": 1.5,
+      "type": {
+        "id": 3,
+        "name": "Синхрон",
+        "shortName": "С"
+      },
+      "editors": [
+        {
+          "id": 4064,
+          "name": "Алексей",
+          "patronymic": "Владимирович",
+          "surname": "Бороненко",
+          "gotQuestionsTag": 101
+        },
+        {
+          "id": 9342,
+          "name": "Юлия",
+          "patronymic": "Амираниевна",
+          "surname": "Дидбаридзе",
+          "gotQuestionsTag": 445
+        },
+        {
+          "id": 27009,
+          "name": "Александр",
+          "patronymic": "Олегович",
+          "surname": "Рождествин",
+          "gotQuestionsTag": 97
+        },
+        {
+          "id": 231862,
+          "name": "Антон",
+          "patronymic": "Павлович",
+          "surname": "Березанский",
+          "gotQuestionsTag": 12474
+        }
+      ]
+    },
+    {
+      "id": 14178,
+      "name": "ШЧР: совместный пакет - 4 (асинхрон и онлайн)",
+      "longName": "ШЧР: совместный пакет - 4 (асинхрон и онлайн)",
+      "dateStart": "2027-04-09T17:00:00+00:00",
+      "dateEnd": "2027-04-25T19:00:00+00:00",
+      "difficultyForecast": 1.5,
+      "type": {
+        "id": 8,
+        "name": "Асинхрон",
+        "shortName": "А"
+      },
+      "editors": [
+        {
+          "id": 3671,
+          "name": "Алексей",
+          "patronymic": "Алексеевич",
+          "surname": "Богословский",
+          "gotQuestionsTag": 68
+        },
+        {
+          "id": 31493,
+          "name": "Сергей",
+          "patronymic": "Александрович",
+          "surname": "Терентьев",
+          "gotQuestionsTag": 6
+        },
+        {
+          "id": 72211,
+          "name": "Мария",
+          "patronymic": "Владимировна",
+          "surname": "Подрядчикова",
+          "gotQuestionsTag": 5
+        },
+        {
+          "id": 119352,
+          "name": "Матвей",
+          "patronymic": "Александрович",
+          "surname": "Гомон",
+          "gotQuestionsTag": 61
+        },
+        {
+          "id": 135967,
+          "name": "Артём",
+          "patronymic": "Сергеевич",
+          "surname": "Савочкин",
+          "gotQuestionsTag": 11646
+        },
+        {
+          "id": 170136,
+          "name": "Фёдор",
+          "patronymic": "Борисович",
+          "surname": "Журавлёв",
+          "gotQuestionsTag": 13403
         }
       ]
     }
