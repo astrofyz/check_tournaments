@@ -2,7 +2,6 @@
 __pycache__/
 *.pyc
 tourn_check_report.json
-data/
 
 # private: saved khvip page and local secrets
 ХВИП.html
