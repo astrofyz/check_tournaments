@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+tourn_check_report.json
+
+# private: saved khvip page and local secrets
+ХВИП.html
+khvip_tours.py
+.streamlit/secrets.toml

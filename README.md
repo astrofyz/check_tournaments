@@ -2,6 +2,15 @@
 
 Сервис помогает проверить, **заиграны ли турниры** кем-то из указанных игроков.
 
+Приложение: https://checktournaments.streamlit.app
+
+## Запуск локально
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_by_player_app.py
+```
+
 ## Как указать турниры
 
 - **По id** — один числовой id на строку.

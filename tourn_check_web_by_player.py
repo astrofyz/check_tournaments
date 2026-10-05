@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Alternate overlap checker: uses GET /players/{id}/tournaments instead of per-tournament results.
-
-Compare with tourn_check_web.py (results+teamMembers on every seed ∪ intersection tournament).
-Same report shape for summaries; input includes overlap_strategy for benchmarks.
-"""
+"""Overlap checker: uses GET /players/{id}/tournaments to find which tournaments players have played."""
 
 from __future__ import annotations
 
@@ -543,26 +539,6 @@ def build_summary(
     return summary
 
 
-def _tsv_cell(value: Any) -> str:
-    s = "" if value is None else str(value)
-    return s.replace("\t", " ").replace("\n", " ").replace("\r", " ")
-
-
-def format_summary_lines(summary: list[dict[str, Any]]) -> list[str]:
-    lines: list[str] = []
-    for row in summary:
-        tid = row.get("id")
-        id_s = "" if tid is None else str(tid)
-        eds = row.get("editor_surnames") or []
-        ed_s = "; ".join(_tsv_cell(x) for x in eds)
-        df = row.get("difficultyForecast")
-        df_s = "" if df is None else _tsv_cell(df)
-        lines.append(
-            f"{id_s}\t{row['status']}\t{_tsv_cell(row['name'])}\t({ed_s})\t{df_s}"
-        )
-    return lines
-
-
 def build_warnings(matches_by_line: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
     warnings: list[dict[str, Any]] = []
     for sub, matches in matches_by_line.items():
@@ -783,7 +759,3 @@ def run_check(
         "warnings": resolution_warnings + build_warnings(matches_by_line),
         "summary": summary,
     }
-
-
-def report_to_json(report: dict[str, Any]) -> str:
-    return json.dumps(report, ensure_ascii=False, indent=2) + "\n"

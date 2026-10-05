@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Local Streamlit UI for the player-tournaments overlap check.
 
-Uses logic from ``tourn_check_web_by_player`` (no Railway or FastAPI).
+Uses logic from ``tourn_check_web_by_player``.
 
 Install and run::
 
-    pip install streamlit
+    pip install -r requirements.txt
     streamlit run streamlit_by_player_app.py
 """
 
