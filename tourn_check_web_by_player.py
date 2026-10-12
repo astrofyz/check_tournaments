@@ -13,13 +13,13 @@ from typing import Any
 
 import requests
 
-DEFAULT_BASE = "https://api.rating.chgk.net"
+DEFAULT_BASE = "https://api.rating.chgk.info"
 DEFAULT_TIMEOUT = 60
 MAX_ITEMS_PER_PAGE = 512
 
 
 class RatingAPIError(Exception):
-    """HTTP or unexpected payload from api.rating.chgk.net."""
+    """HTTP or unexpected payload from api.rating.chgk.info."""
 
 
 def editor_surnames_from_tournament(row: dict[str, Any]) -> list[str]:
