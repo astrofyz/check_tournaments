@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+import random
 import sys
 import threading
 import time
@@ -16,6 +17,10 @@ import requests
 DEFAULT_BASE = "https://api.rating.chgk.info"
 DEFAULT_TIMEOUT = 60
 MAX_ITEMS_PER_PAGE = 512
+# 429/503 retry: waits 2, 4, 8, 16, 30, 30 s (+ jitter) unless Retry-After says otherwise.
+MAX_RETRIES = 6
+BACKOFF_BASE = 2.0
+BACKOFF_CAP = 30.0
 
 
 class RatingAPIError(Exception):
@@ -82,16 +87,29 @@ class RatingClient:
             path = "/" + path
         return f"{self.base_url}{path}"
 
+    def _get_with_retry(self, url: str, params: Any = None) -> requests.Response:
+        """GET, retrying 429/503 with exponential backoff (honours Retry-After)."""
+        r = self.session.get(url, params=params, timeout=self.timeout)
+        for attempt in range(MAX_RETRIES):
+            if r.status_code not in (429, 503):
+                break
+            retry_after = r.headers.get("Retry-After")
+            if retry_after and retry_after.isdigit():
+                wait = float(retry_after)
+            else:
+                wait = min(BACKOFF_CAP, BACKOFF_BASE * 2**attempt)
+            wait += random.uniform(0, 1)
+            if self.verbose:
+                print(f"HTTP {r.status_code} for {url}; retry in {wait:.1f}s", file=sys.stderr)
+            time.sleep(wait)
+            r = self.session.get(url, params=params, timeout=self.timeout)
+        return r
+
     def get(self, path: str, params: list[tuple[str, str | int]] | dict[str, Any] | None = None) -> Any:
         url = self._url(path)
         if self.verbose:
             print(f"GET {url} params={params}", file=sys.stderr)
-        r = self.session.get(url, params=params, timeout=self.timeout)
-        if r.status_code == 429:
-            retry_after = r.headers.get("Retry-After")
-            wait = float(retry_after) if retry_after and retry_after.isdigit() else 2.0
-            time.sleep(wait)
-            r = self.session.get(url, params=params, timeout=self.timeout)
+        r = self._get_with_retry(url, params=params)
         if not r.ok:
             raise RatingAPIError(f"HTTP {r.status_code} for {r.url}\n{r.text[:500]}")
         return r.json()
@@ -101,12 +119,7 @@ class RatingClient:
         url = self._url(f"/tournaments/{tournament_id}")
         if self.verbose:
             print(f"GET {url}", file=sys.stderr)
-        r = self.session.get(url, timeout=self.timeout)
-        if r.status_code == 429:
-            retry_after = r.headers.get("Retry-After")
-            wait = float(retry_after) if retry_after and retry_after.isdigit() else 2.0
-            time.sleep(wait)
-            r = self.session.get(url, timeout=self.timeout)
+        r = self._get_with_retry(url)
         if r.status_code == 404:
             return None
         if not r.ok:

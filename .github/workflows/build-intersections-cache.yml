@@ -27,7 +27,7 @@ jobs:
 
       - name: Build intersections cache and tours snapshot
         env:
-          TOURN_CHECK_PARALLEL_WORKERS: "8"
+          TOURN_CHECK_PARALLEL_WORKERS: "4"
         run: |
           python build_intersections_cache.py \
             -o data/intersections_cache.json \
